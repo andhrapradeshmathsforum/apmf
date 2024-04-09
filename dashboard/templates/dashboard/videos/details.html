@@ -1,0 +1,39 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% load embed_video_tags %}
+
+{% block title %}Video details{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="{% url "dashboard" %}" style ="text-decoration:none">Dashboard</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="{% url "dashboard_video_list" %}" style ="text-decoration:none">Videos</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">Video details</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+<div class="container mb-2">
+  <h3 style="margin-top:5px; text-align: center; color:teal">VIDEOS</h3>
+</div>
+<div class="container">
+          <div class="row gy-3">    
+                      <div class='col'>
+                          <div class="d-flex justify-content-center">
+                            <div >
+                                  {% video video.video 'small' %}  
+                                  <h5 class ="mt-0">{{video.title}}</h5>
+                                  <p>{{video.description}}<p>  
+                            </div>  
+                          </div>
+                      </div>
+            </div>
+  </div>
+
+
+ 
+{% endblock content %}

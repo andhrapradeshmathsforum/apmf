@@ -1,0 +1,42 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}News{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">News</a>
+</span>
+{% endblock navigation %}
+    
+{% block content %}
+
+  <div class="container mt-3">
+    <div class="text-center"> <h3>APMF NEWS</h3></div>
+    <div class = "row ">
+      {% for item  in news %}       
+      <div class ="col-xs-12 col-sm-12 col-md-6 " >
+        <div class="card h-100" >
+          {% if item.image.url is not None %}          
+              <img class="card-img-top" src="{{ item.image.url}}" alt="News photo">
+          {% endif %}
+          <div class="card-body">
+            <h4 class="card-title">{{ item.heading|title}}</h4>
+          <div class="card-text text-muted">
+            <em class="">Uploaded on {{item.date_added|date:'d/m/y'}} by {{item.uploaded_by.name|title}}</em>
+          </div>
+            <p class="card-text">{{ item.body|safe}}</p>
+            
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+    
+   
+{% endblock content %}

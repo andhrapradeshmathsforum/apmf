@@ -1,0 +1,24 @@
+{% extends "dashboard/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Logout{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">Logout</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+<div class ="container mt-3">
+      <h2 style="color:teal">Log out</h2>
+      <p>Are you sure?</p>
+      <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button class="btn btn-danger">Logout</button>
+</div>
+
+{% endblock content %}

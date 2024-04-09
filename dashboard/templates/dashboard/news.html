@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row mt-3">
+        {% if news.image.url is not None %}
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card" >
+                <img src="{{ news.image.url }}" class="card-img-top img-fluid" alt="news photo">
+                
+              </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card" >                
+                <div class="card-body">
+                        <h3 class="card-title" style="color:teal">APMF News</h3>
+                        <h5 class="card-title" style="color:tomato">{{ news.heading}}</h5>
+                        <p class="card-text">{{ news.body|truncatewords:20 }}</p>
+                        <a href="{% url 'news_list' %}" class="btn btn-outline-primary"> Read more </a>
+                </div>
+              </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 d-flex align-items-stretch">
+                <div class="card h-100"  style="background-color:honeydew;">
+                    <div class="card-body">
+                    <h5 class="card-title" style="color: darkblue;">Today's Quote</h5>
+                    <figure>
+                        {% for quote in quotes|slice:"1:2"  %}
+                        <blockquote class="blockquote">
+                        <p style="color:darkgreen;">{{ quote.quote }}</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer">
+                        <cite title="Source Title">{{ quote.author }}</cite>
+                        </figcaption>
+                        {% endfor %}
+                    </figure>
+                    </div>
+                </div>
+         </div>
+
+          {% else %}
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex align-items-stretch">
+            <div class="card" >                
+                <div class="card-body">
+                        <h3 class="card-title" style="color:teal">APMF News</h3>
+                        <h5 class="card-title" style="color:tomato">{{ news.heading}}</h5>
+                        <p class="card-text">{{ news.body|truncatewords:20 }}</p>
+                        <a href="{% url 'news_list' %}" class="btn btn-outline-primary"> Read more </a>
+                </div>
+              </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex align-items-stretch">
+            <div class="card h-100"  style="background-color:honeydew;">
+                <div class="card-body">
+                <h5 class="card-title" style="color: darkblue;">Today's Quote</h5>
+                <figure>
+                    {% for quote in quotes|slice:"1:2"  %}
+                    <blockquote class="blockquote">
+                    <p style="color:darkgreen;">{{ quote.quote }}</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                    <cite title="Source Title">{{ quote.author }}</cite>
+                    </figcaption>
+                    {% endfor %}
+                </figure>
+                </div>
+            </div>
+     </div>
+     {% endif %}
+    </div>
+</div>

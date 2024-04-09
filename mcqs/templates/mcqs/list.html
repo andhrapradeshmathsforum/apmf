@@ -1,0 +1,65 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}MCQs list{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">MCQs</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<div class="container mb-2">
+    <h3 style="margin-top:5px; text-align: center; color:teal">MCQs</h3>
+</div>
+
+<div class="container ">
+    
+    <div class="row gy-3">
+        {% for mcq in mcqs  %}
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+                
+
+                <div class="card h-100 box-shadow">
+                    <div class="card-header" style="background-color: cadetblue;">
+                      #{{forloop.counter}} - MCQs
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{mcq.standard}} Class MCQ</h5>
+                      <h4 class="card-title">{{mcq.chapter|title}}</h4>
+                      <p class="card-text">{{mcq.description}}</p>
+                      
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="btn-group-justified ">
+                        <a href="{{mcq.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'mcq_update' mcq.pk %}" class="btn btn-info btn-sm">Update</a>
+                        <a href="{% url 'mcq_delete' mcq.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        {% endif %}
+                        </div>
+                      <em class="">Uploaded on {{mcq.date_added|date:'d/m/y'}} by {{mcq.uploaded_by.name|title}}</em>
+                    </div>
+                  </div>
+                
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+
+   
+   
+{% endblock content %}

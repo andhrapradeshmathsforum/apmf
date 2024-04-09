@@ -1,0 +1,65 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}PPT list{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">PPTs</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<div class="container mb-2">
+    <h3 style="margin-top:5px; text-align: center; color:teal">PPTs</h3>
+</div>
+
+<div class="container ">
+    
+    <div class="row gy-3">
+        {% for ppt in ppts  %}
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+                
+
+                <div class="card h-100 box-shadow">
+                    <div class="card-header" style="background-color: cadetblue;">
+                      #{{forloop.counter}} - PPT
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ppt.standard}} Class PPT</h5>
+                      <h4 class="card-title">{{ppt.chapter|title}}</h4>
+                      <p class="card-text">{{ppt.description}}</p>
+                      
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="btn-group-justified ">
+                        <a href="{{ppt.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'ppt_update' ppt.pk %}" class="btn btn-info btn-sm">Update</a>
+                        <a href="{% url 'ppt_delete' ppt.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        {% endif %}
+                        </div>
+                      <em class="">Uploaded on {{ppt.date_added|date:'d/m/y'}} by {{ppt.uploaded_by.name|title}}</em>
+                    </div>
+                  </div>
+                
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+
+   
+   
+{% endblock content %}

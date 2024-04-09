@@ -1,0 +1,61 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% block title %}MCQs list{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="{% url "dashboard" %}" style ="text-decoration:none">Dashboard</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">MCQs</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<h6 class ="p-1 text-center" style="background-color:teal; color:white"> MCQs</h6>
+
+<table class="table table-sm table-hover">
+    <thead class="table-primary" >
+      <tr  >
+        <th scope="col">S.No.</th>
+        <th scope="col">Class</th>
+        <th scope="col">Chapter</th>        
+        <th scope="col">Date added</th>
+        <th scope="col">Date updated</th> 
+        <th scope="col">Uploader email</th>
+        <th scope="col">Uploader name</th> 
+        <th scope="col">Phone No.</th>       
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for mcq in  mcqs %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{mcq.standard}}</td>
+        <td>{{mcq.chapter|title}}</td>
+        <td>{{mcq.date_added|date:'d/m/y'}}</td>
+        <td>{{mcq.date_updated|date:'d/m/y'}}</td>
+        <td>{{mcq.uploaded_by.email}}</td>
+        <td>{{mcq.uploaded_by.name|upper}}</td>
+        <td>{{mcq.uploaded_by.phone_number}}</td>
+        <td><a style="text-decoration:none;" href= '{{ mcq.file.url }}'><i class="bi bi-eye"></i>View </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_mcq_update" mcq.pk %}'><i class="bi bi-pencil-fill"></i>Edit </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_mcq_delete" mcq.pk %}'><i class="bi bi-file-earmark-minus"></i>Delete </a> </td>
+        
+      </tr>
+    
+      {% endfor %}
+      
+      <tbody>
+      </table>
+      Total: {{mcqs|length}} mcq{{mcqs|length|pluralize:'s'}}
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "dashboard/dashboard.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Notes delete{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+    <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+    <i class="bi bi-chevron-compact-right"></i>
+    <a href="{% url "dashboard" %}" style ="text-decoration:none">Dashboard</a>
+    <i class="bi bi-chevron-compact-right"></i>
+    <a href="{% url "dashboard_notes_list" %}" style ="text-decoration:none">Notes</a>
+    <i class="bi bi-chevron-compact-right"></i>
+    <a href="#" style ="text-decoration:none"> Delete</a>
+  </span>
+{% endblock navigation %}
+
+{% block content %}
+<div class="container " >
+    <div class="row ">
+        <div class="col-md-4 mx-auto">
+            <h6 class="p-1 mb-3 text-white text-center rounded " style="background-color:teal;">NOTES DELETE</h6>
+            <p>Are you sure?</p>
+                    <p>Delete {{notes.standard}} Class  {{notes.chapter|title}} notes ?
+            <form  class="ps-2 pe-2" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy}}
+                <button class="btn btn-danger text-white"  type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+   
+{% endblock content %}

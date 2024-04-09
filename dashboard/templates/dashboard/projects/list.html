@@ -1,0 +1,63 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% block title %}Projects list{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="{% url "dashboard" %}" style ="text-decoration:none">Dashboard</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">Projects</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<h6 class ="p-1 text-center" style="background-color:teal; color:white"> PROJECTS</h6>
+
+<table class="table table-sm table-hover">
+    <thead class="table-primary" >
+      <tr  >
+        <th scope="col">S.No.</th>
+        <th scope="col">Class</th>
+        <th scope="col">Exam</th>
+        <th scope="col">Chapter</th>
+        <th scope="col">Date added</th>
+        <th scope="col">Date updated</th>
+        <th scope="col">Uploader email</th>
+        <th scope="col">Uploader name</th> 
+        <th scope="col">Phone No.</th>        
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for project in  projects %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{project.standard}}</td>
+        <td>{{project.exam}}</td>
+        <td>{{project.chapter|title}}</td>
+        <td>{{project.date_added|date:'d/m/y'}}</td>
+        <td>{{project.date_updated|date:'d/m/y'}}</td>
+        <td>{{project.uploaded_by.email}}</td>
+        <td>{{project.uploaded_by.name|upper}}</td>
+        <td>{{project.uploaded_by.phone_number}}</td>
+        <td><a style="text-decoration:none;" href= '{{ project.file.url }}'><i class="bi bi-eye"></i>View </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_project_update" project.pk %}'><i class="bi bi-pencil-fill"></i>Edit </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_project_delete" project.pk %}'><i class="bi bi-file-earmark-minus"></i>Delete </a> </td>
+        
+      </tr>
+    
+      {% endfor %}
+      
+      <tbody>
+      </table>
+      Total: {{projects|length}} project{{projects|length|pluralize:'s'}}
+{% endblock content %}

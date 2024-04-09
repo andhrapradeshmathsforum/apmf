@@ -1,0 +1,63 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% block title %}Textbooks list{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="{% url "dashboard" %}" style ="text-decoration:none">Dashboard</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">Textbooks</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<h6 class ="p-1 text-center" style="background-color:teal; color:white"> TEXTBOOKS</h6>
+
+<table class="table table-sm table-hover">
+    <thead class="table-primary" >
+      <tr  >
+        <th scope="col">S.No.</th>
+        <th scope="col">Class</th>
+        <th scope="col">Semester</th>
+        <th scope="col">Title</th>
+        <th scope="col">Date added</th>
+        <th scope="col">Date updated</th> 
+        <th scope="col">Uploader email</th>
+        <th scope="col">Uploader name</th> 
+        <th scope="col">Phone No.</th>       
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for textbook in  textbooks %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{textbook.standard}}</td>
+        <td>{{textbook.semester|capfirst}}</td>
+        <td>{{textbook.title|title}}</td>
+        <td>{{textbook.date_added|date:'d/m/y'}}</td>
+        <td>{{textbook.date_updated|date:'d/m/y'}}</td>
+        <td>{{textbook.uploaded_by.email}}</td>
+        <td>{{textbook.uploaded_by.name|upper}}</td>
+        <td>{{textbook.uploaded_by.phone_number}}</td>
+        <td><a style="text-decoration:none;" href= '{{ textbook.file.url }}'><i class="bi bi-eye"></i>View </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_textbook_update" textbook.pk %}'><i class="bi bi-pencil-fill"></i>Edit </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_textbook_delete" textbook.pk %}'><i class="bi bi-file-earmark-minus"></i>Delete </a> </td>
+        
+      </tr>
+    
+      {% endfor %}
+      
+      <tbody>
+      </table>
+      Total: {{textbooks|length}} textbook{{textbooks|length|pluralize:'s'}}
+{% endblock content %}
