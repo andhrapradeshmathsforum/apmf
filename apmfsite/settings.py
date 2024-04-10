@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'mcqs.apps.McqsConfig', # mcqs app
     'icts.apps.IctsConfig', # ict & simulations
     'worksheets.apps.WorksheetsConfig', # worksheets app
+    'otherbooks.apps.OtherbooksConfig', # otherbooks app
+    'ifps.apps.IfpsConfig', # ifp videos app
+    'handbooks.apps.HandbooksConfig', # teacher hand books app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

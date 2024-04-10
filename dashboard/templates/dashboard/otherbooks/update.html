@@ -1,0 +1,39 @@
+{% extends "dashboard/dashboard.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Otherbook update{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+    <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+    <i class="bi bi-chevron-compact-right"></i>
+    <a href="{% url "dashboard" %}" style ="text-decoration:none">Dashboard</a>
+    <i class="bi bi-chevron-compact-right"></i>
+    <a href="{% url "dashboard_otherbook_list" %}" style ="text-decoration:none">Otherbooks</a>
+    <i class="bi bi-chevron-compact-right"></i>
+    <a href="#" style ="text-decoration:none"> Update</a>
+  </span>
+{% endblock navigation %}
+
+{% block content %}
+
+<div class="container " >
+    <div class="row ">
+        <div class="col-md-4 mx-auto">
+            <h6 class="p-1 mb-3 text-white text-center rounded " style="background-color:teal;">OTHERBOOK UPDATE</h6>
+            <form  class="ps-2 pe-2" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy}}
+                <button class="btn text-white" style="background-color:cadetblue;" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+        
+   
+
+   
+   
+{% endblock content %}

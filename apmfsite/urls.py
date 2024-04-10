@@ -39,6 +39,9 @@ urlpatterns = [
     path('mcqs/', include('mcqs.urls')),
     path('ict-simulations/', include('icts.urls')),
     path('worksheets/', include('worksheets.urls')), 
+    path('otherbooks/', include('otherbooks.urls')),
+    path('ifp-usage/', include('ifps.urls')),
+    path('teacher-hand-books/',include('handbooks.urls')),
 ]
 
 admin.site.site_header = 'APMF Administration'

@@ -247,6 +247,76 @@
     </div>
 
 
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/ict.png'%}" class="card-img-top img-fit" alt="ict">
+       <div class="card-body ">
+        <h5 class="card-title">ICT & Simulations </h5>
+        <a href="{% url "ict_list" %}" class="btn btn-outline-primary">Explore</a>
+        {% if user.is_authenticated %}
+        <a href="{% url "ict_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+       </div>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/worksheet.png'%}" class="card-img-top img-fit" alt="worksheets">
+       <div class="card-body ">
+        <h5 class="card-title">Worksheets </h5>
+        <a href="{% url "worksheet_list" %}" class="btn btn-outline-primary">Explore</a>
+        {% if user.is_authenticated %}
+        <a href="{% url "worksheet_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+       </div>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/otherbooks.png'%}" class="card-img-top img-fit" alt="otherbooks">
+       <div class="card-body ">
+        <h5 class="card-title">Otherbooks </h5>
+        <a href="{% url "otherbook_list" %}" class="btn btn-outline-primary">Explore</a>
+        {% if user.is_authenticated %}
+        <a href="{% url "otherbook_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+       </div>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/ifp.png'%}" class="card-img-top img-fit" alt="otherbooks">
+       <div class="card-body ">
+        <h5 class="card-title">IFP Usage </h5>
+        <a href="{% url "ifp_list" %}" class="btn btn-outline-primary">Explore</a>
+        {% if user.is_authenticated %}
+        <a href="{% url "ifp_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+       </div>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/handbooks.png'%}" class="card-img-top img-fit" alt="teacher hand book">
+       <div class="card-body ">
+        <h5 class="card-title">Teacher Hand Books </h5>
+        <a href="{% url "handbook_list" %}" class="btn btn-outline-primary">Explore</a>
+        {% if user.is_authenticated %}
+        <a href="{% url "handbook_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+       </div>
+      </div>
+    </div>
+
+
 
   </div>
 </div>

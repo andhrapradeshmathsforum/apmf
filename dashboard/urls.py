@@ -95,7 +95,28 @@ urlpatterns = [
     path('dashboard/worksheets/add/', views.DashboardWorksheetAddView.as_view(), name='dashboard_worksheet_add'),
     path('dashboard/worksheets/<int:pk>/', views.DashboardWorksheetUpdateView.as_view(), name='dashboard_worksheet_update'),
     path('dashboard/worksheets/delete/<int:pk>/', views.DashboardWorksheetDeleteView.as_view(), name='dashboard_worksheet_delete'),
+
+
+# dash board worksheet path
+    path('dashboard/otherbooks/', views.DashboardOtherbookListView.as_view(), name='dashboard_otherbook_list'),
+    path('dashboard/otherbooks/add/', views.DashboardOtherbookAddView.as_view(), name='dashboard_otherbook_add'),
+    path('dashboard/otherbooks/<int:pk>/', views.DashboardOtherbookUpdateView.as_view(), name='dashboard_otherbook_update'),
+    path('dashboard/otherbooks/delete/<int:pk>/', views.DashboardOtherbookDeleteView.as_view(), name='dashboard_otherbook_delete'),
     
+
+# dash board ifp usage videos path
+    path('dashboard/ifp-usage/', views.DashboardIfpListView.as_view(), name='dashboard_ifp_list'),
+    path('dashboard/ifp-usage/add/', views.DashboardIfpAddView.as_view(), name='dashboard_ifp_add'),
+    path('dashboard/ifp-usage/<int:pk>/', views.DashboardIfpUpdateView.as_view(), name='dashboard_ifp_update'),
+    path('dashboard/ifp-usage/delete/<int:pk>/', views.DashboardIfpDeleteView.as_view(), name='dashboard_ifp_delete'),   
+    path('dashboard/ifp-usage/detials/<int:pk>/', views.DashboardIfpDetailView.as_view(), name='dashboard_ifp_detail'),
+
+
+# dash board ifp usage videos path
+    path('dashboard/handbooks/', views.DashboardHandbookListView.as_view(), name='dashboard_handbook_list'),
+    path('dashboard/handbooks/add/', views.DashboardHandbookAddView.as_view(), name='dashboard_handbook_add'),
+    path('dashboard/handbooks/<int:pk>/', views.DashboardHandbookUpdateView.as_view(), name='dashboard_handbook_update'),
+    path('dashboard/handbooks/delete/<int:pk>/', views.DashboardHandbookDeleteView.as_view(), name='dashboard_handbook_delete'),   
     
     
     

@@ -14,12 +14,16 @@ from examplarmaths import views as examplarmath_views
 from mcqs import views as mcqs_views
 from icts import views as icts_views
 from worksheets import views as worksheet_views
+from otherbooks import views as otherbook_views
+from handbooks import views as handbook_views
+from ifps import views as ifp_views
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from quotes.models import Quote
 from news.models import News
 from django.views.generic import DetailView
 from videos.models import Video
+from ifps.models import Ifp
 
 
 
@@ -307,3 +311,67 @@ class DashboardWorksheetDeleteView(worksheet_views.WorksheetDeleteView):
     template_name = 'dashboard/worksheets/delete.html'
     success_url = reverse_lazy('dashboard_worksheet_list')
     context_object_name = 'worksheet'
+
+
+
+# Dashboard other books views
+class DashboardOtherbookAddView(otherbook_views.OtherbookAddView):
+    template_name = 'dashboard/otherbooks/add.html'
+    success_url = reverse_lazy('dashboard_otherbook_list')
+
+class DashboardOtherbookListView(otherbook_views.OtherbookListView):
+    template_name = 'dashboard/otherbooks/list.html'
+    success_url = reverse_lazy('dashboard_otherbook_list')
+
+class DashboardOtherbookUpdateView(otherbook_views.OtherbookUpdateView):
+    template_name = 'dashboard/otherbooks/update.html'
+    success_url = reverse_lazy('dashboard_otherbook_list')
+
+class DashboardOtherbookDeleteView(otherbook_views.OtherbookDeleteView):
+    template_name = 'dashboard/otherbooks/delete.html'
+    success_url = reverse_lazy('dashboard_otherbook_list')
+    context_object_name = 'otherbook'
+
+
+# Dashboard ifp views
+class DashboardIfpAddView(ifp_views.IfpAddView):
+    template_name = 'dashboard/ifps/add.html'
+    success_url = reverse_lazy('dashboard_ifp_list')
+
+class DashboardIfpListView(ifp_views.IfpListView):
+    template_name = 'dashboard/ifps/list.html'
+    success_url = reverse_lazy('dashboard_ifp_list')
+
+class DashboardIfpUpdateView(ifp_views.IfpUpdateView):
+    template_name = 'dashboard/ifps/update.html'
+    success_url = reverse_lazy('dashboard_ifp_list')
+
+class DashboardIfpDeleteView(ifp_views.IfpDeleteView):
+    template_name = 'dashboard/ifps/delete.html'
+    success_url = reverse_lazy('dashboard_ifp_list')
+    context_object_name = 'otherbook'
+
+class DashboardIfpDetailView(DetailView):
+    model = Ifp
+    template_name = "dashboard/ifps/details.html"
+    context_object_name= 'ifp'
+
+
+# Dashboard handbook views
+class DashboardHandbookAddView(handbook_views.HandbookAddView):
+    template_name = 'dashboard/handbooks/add.html'
+    success_url = reverse_lazy('dashboard_handbook_list')
+
+class DashboardHandbookListView(handbook_views.HandbookListView):
+    template_name = 'dashboard/handbooks/list.html'
+    success_url = reverse_lazy('dashboard_handbook_list')
+
+class DashboardHandbookUpdateView(handbook_views.HandbookUpdateView):
+    template_name = 'dashboard/handbooks/update.html'
+    success_url = reverse_lazy('dashboard_handbook_list')
+
+class DashboardHandbookDeleteView(handbook_views.HandbookDeleteView):
+    template_name = 'dashboard/handbooks/delete.html'
+    success_url = reverse_lazy('dashboard_handbook_list')
+    context_object_name = 'otherbook'
+

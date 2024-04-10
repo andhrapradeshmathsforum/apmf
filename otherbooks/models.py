@@ -16,7 +16,7 @@ class Otherbook(models.Model):
 
     class Meta:
         ordering = [
-            'dated_added'
+            'date_added'
         ]
 
     def __str__(self):
