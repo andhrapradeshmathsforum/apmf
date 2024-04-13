@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'otherbooks.apps.OtherbooksConfig', # otherbooks app
     'ifps.apps.IfpsConfig', # ifp videos app
     'handbooks.apps.HandbooksConfig', # teacher hand books app
+    'posts.apps.PostsConfig', # posts app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

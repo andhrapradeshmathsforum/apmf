@@ -7,7 +7,7 @@ from ckeditor.fields import RichTextField
 class News(models.Model):
     heading = models.CharField(max_length=200)
     body = RichTextField()
-    image = models.ImageField('photo', upload_to='files', blank= True)
+    image = models.ImageField('photo', upload_to='images', blank= True)
     attachment = models.FileField(upload_to='files', blank=True)
     date_added = models.DateTimeField(auto_now_add = True)
     date_updated = models.DateTimeField(auto_now = True) 

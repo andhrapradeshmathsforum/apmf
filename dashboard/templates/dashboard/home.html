@@ -15,55 +15,108 @@
 
       
 {% block content %}
-
-     
-       <!-- news and quotes section --> 
-  <div class="container mt-3">
-    <div class="row card-group g-2">
-      <div class="col-md-8 ">
-          
-                <div class="card mb-3 h-100" >
-                  <div class="row g-0">
-                    <div class="col-md-5">
-                      {% if news.image.url is not None %}
-                      <img src="{{ news.image.url }}" class="card-img-top img-fit" alt="photo">
-                       {% else %}
-                      <img src="{% static 'images/news.png' %}" class="card-img-top img-fit "  alt="photo">
-                      {% endif %}
-
-                    </div>
-                    <div class="col-md-7">
-                      <div class="card-body">
-                        <h3 class="card-title" style="color:teal">APMF News</h3>
-                        <h5 class="card-title" style="color:tomato">{{ news.heading}}</h5>
-                        <p class="card-text">{{ news.body|truncatewords:20|safe }}</p>
-                        <a href="{% url "news_list" %}" class="btn btn-outline-primary">Read more</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-          
+<!-- news, posts and quotes section --> 
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-sm-12, col-md-12 col-lg-6 d-flex align-items-stretch">
+      {% if news is not None %}
+      <div class="card mb-3" >
+        <div class="row g-0">
+          <div class="col-sm-6">
+            {% if news.image.url is not None %}
+            <img src="{{ news.image.url }}" class="card-img-top " alt="photo">
+            {% else %}
+            <img src="{% static 'images/apmf_news.png' %}" class="card-img-top  "  alt="photo"> 
+            {% endif %}
+          </div>
+          <div class="col-sm-6">
+            <div class="card-body">
+              <h3 class="card-title" style="color:teal">APMF News</h3>
+              <h5 class="card-title" style="color:tomato">{{ news.heading}}</h5>
+              <p class="card-text">{{ news.body|truncatewords:20|safe }}</p>
+              <p class="card-text"><small class="text-muted">Updated by {{news.uploaded_by}}</small></p>
+      
+              <a href="{% url "news_list" %}" class="btn btn-outline-primary">Read more</a> 
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4 " >
-                    <div class="card h-100"  style="background-color:honeydew;">
-                      <div class="card-body">
-                        <h5 class="card-title" style="color: darkblue;">Today's Quote</h5>
-                        <figure>
-                          {% for quote in quotes|slice:"1:2"  %}
-                          <blockquote class="blockquote">
-                            <p style="color:darkgreen;">{{ quote.quote }}</p>
-                          </blockquote>
-                          <figcaption class="blockquote-footer">
-                            <cite title="Source Title">{{ quote.author }}</cite>
-                          </figcaption>
-                          {% endfor %}
-                        </figure>
-                      </div>
-                    </div>
+                 
+      {% else %}
+      <div class="card mb-3" >
+        <div class="row g-0">
+          <div class="col-md-6">
+            
+            <img src="{% static 'images/apmf_news.png' %}" class="card-img-top  "  alt="photo"> 
+            
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title" style="color:teal">APMF News</h3>
+              <h5 class="card-title" style="color:tomato">Latest News from APMF</h5>
+              <p class="card-text">Here, you can read the news of our APMF from the entire state.</p>
+              <p class="card-text"><small class="text-muted">Updated by Admin</small></p>
+      
+              <a href="#" class="btn btn-outline-primary">Read more</a> 
+            </div>
+          </div>
+        </div>
       </div>
+      {% endif %}
+
+    </div>
+    <div class="col-sm-12, col-md-6 col-lg-3 d-flex align-items-stretch">
+      <div class ="card">
+      {% if posts is not None %}
+            <div class="card-body">
+              <h3 class="card-title" style="color:teal">APMF LATEST POST</h3>
+              <p class="card-text">{{ posts|truncatewords:20}}</p>
+              <a href="#" class="btn btn-outline-primary">Read more</a> 
+            </div>
+      {% else %}
+          <div class="card-body">
+            <h3 class="card-title" style="color:teal">APMF LATEST POST</h3>
+            <p class="card-text">Here, you can watch the leatest post posted by AMPF. A post is the information regarding our Educational Department.</p>
+            <a href="#" class="btn btn-outline-primary">Read more</a> 
+          </div>
+      {% endif %}
+        </div>
+    </div>
+    <div class="col-sm-12, col-md-6 col-lg-3 d-flex align-items-stretch">
+      {% if quotes is not None %}
+      <div class="card-body">
+        <h5 class="card-title" style="color: darkblue;">Today's Quote</h5>
+        <figure>         
+          <blockquote class="blockquote">
+            <p style="color:darkgreen;">{{ quotes.quote }}</p>
+          </blockquote>
+          <figcaption class="blockquote-footer">
+            <cite title="Source Title">{{ quotes.author }}</cite>
+          </figcaption>
+          
+        </figure>
+      </div>
+      {% else %}
+      <div class="card-body">
+        <h5 class="card-title" style="color: darkblue;">Today's Quote</h5>
+        <figure>         
+          <blockquote class="blockquote">
+            <p style="color:darkgreen;">Without mathematics, there’s nothing you can do. Everything around you is mathematics. Everything around you is numbers.</p>
+          </blockquote>
+          <figcaption class="blockquote-footer">
+            <cite title="Source Title">Shakuntala Devi</cite>
+          </figcaption>
+          
+        </figure>
+      </div>
+      {% endif %}
+
     </div>
   </div>
-  
+</div>
+
+
+     
 
 <!-- body list section --> 
 
@@ -321,211 +374,7 @@
   </div>
 </div>
 
-<div class="container ">
-  <div class="row  g-3 mt-1 ">        
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 d-flex align-items-stretch p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Textbooks</h4>
-        <img src="{% static 'images/books.jpeg' %}" class="card-img-top img-fit"  alt="...">
-        <div class="card-body">
-            <a href="{% url "textbook_list" %}" class="btn btn-outline-primary" >Explore</a>
-            {% if user.is_authenticated %}
-            <a href="{% url "textbook_add" %}" class="btn btn-outline-primary" >Upload</a>
-            {% endif %}
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 d-flex align-items-stretch p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Lessonplans</h4>
-        <img src="{% static 'images/lessonplan.png' %}" class="card-img-top"  alt="...">
-        <div class="card-body">
-            <a href="{% url "lessonplan_list" %}" class="btn btn-outline-primary" >Explore</a>
-            {% if user.is_authenticated %}
-            <a href="{% url "lessonplan_add" %}" class="btn btn-outline-primary" >Upload</a>
-            {% endif %}
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 d-flex align-items-stretch p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Projects</h4>
-        <img src="{% static 'images/projects.jpg' %}" class="card-img-top"  alt="...">
-        <div class="card-body">
-            <a href="{% url "project_list" %}" class="btn btn-outline-primary" >Explore</a>
-            {% if user.is_authenticated %}
-            <a href="{% url "project_add" %}" class="btn btn-outline-primary" >Upload</a>
-            {% endif %}
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 d-flex align-items-stretch p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Notes</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Solutions</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Question papers</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">PPTs</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Examplar Maths</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Examplar Math Solutions</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">NMMS Material</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">NMMS Question Papers</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">Videos</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">ICT & Simulations</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">MCQ questions</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3  p-2">
-      <div class="card border-dark" >
-        <h4 class="card-title p-2" style="text-align: center; color: white; background-color: teal;">APMF News</h4>
-        <img src="question_paper.png" class="card-img-top" style="width: 300px; height: 150px ;" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-outline-primary" >Explore</a>
-            
-        </div>
-      </div>
-    </div>
-
-
-    
-    
-    
-
-    </div>
-  </div>
 
         
 {% endblock content %}
