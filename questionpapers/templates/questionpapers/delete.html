@@ -7,7 +7,7 @@
 <span class="navbar-text" >
     <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
     <i class="bi bi-chevron-compact-right"></i>
-    <a href="{% url "questionpaper_list" %}" style ="text-decoration:none">Questionpaper</a>
+    <a href="{% url "questionpaper_list" %}" style ="text-decoration:none">Questionpapers</a>
     <i class="bi bi-chevron-compact-right"></i>
     <a href="#" style ="text-decoration:none">Delete</a>
   </span>
@@ -19,7 +19,7 @@
         <div class="col-md-4 mx-auto">
             <h5 class="p-3 mb-3 text-white text-center rounded " style="background-color:teal;">QUESTIONPAPER DELETE</h5>
             <p>Are you sure?</p>
-                    <p>Delete {{questionpaper.standard}} Class {{questionpaper.exam}} Questionpaper ?
+                    <p>Delete the question paper :<span style="color:teal"> {{questionpaper.standard}} Class {{questionpaper.exam}} {{questionpaper.description}}?</span>
             <form  class="ps-2 pe-2" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy}}

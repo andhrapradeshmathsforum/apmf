@@ -16,6 +16,8 @@ class Ict(models.Model):
 
 
     class Meta:
+        verbose_name = 'ICT and Simulation Site'
+        verbose_name_plural = 'ICT and Simulation Sites'
         ordering = [
             '-date_added'
         ]

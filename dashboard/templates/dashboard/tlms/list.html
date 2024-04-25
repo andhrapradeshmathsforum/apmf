@@ -1,0 +1,60 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% load imagekit %}
+{% block title %}TLM list{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="{% url "dashboard" %}" style ="text-decoration:none">Dashboard</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">TLM Photos</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<h6 class ="p-1 text-center" style="background-color:teal; color:white"> TLM PHOTOS</h6>
+
+<table class="table table-sm table-hover">
+    <thead class="table-primary" >
+      <tr  >
+        <th scope="col">S.No.</th>               
+        <th scope="col">Title</th>
+        <th scope="col">Date added</th>
+        <th scope="col">Date updated</th> 
+        <th scope="col">Uploader email</th>
+        <th scope="col">Uploader name</th> 
+        <th scope="col">Phone No.</th>       
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for tlm in  tlms %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>        
+        <td>{{tlm.title|title}}</td>
+        <td>{{tlm.date_added|date:'d/m/y'}}</td>
+        <td>{{tlm.date_updated|date:'d/m/y'}}</td>
+        <td>{{tlm.uploaded_by.email}}</td>
+        <td>{{tlm.uploaded_by.name|upper}}</td>
+        <td>{{tlm.uploaded_by.phone_number}}</td>
+        <td><img src="{{ tlm.image_thumbnail.url }}" alt="tlm_photo">
+          <a style="text-decoration:none;" href= '{% url "dashboard_tlm_update" tlm.pk %}'><i class="bi bi-pencil-fill"></i>Edit </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_tlm_delete" tlm.pk %}'><i class="bi bi-file-earmark-minus"></i>Delete </a> </td>
+        
+      </tr>
+    
+      {% endfor %}
+      
+      <tbody>
+      </table>
+      Total: {{tlms|length}} tlm{{tlms|length|pluralize:'s'}}
+{% endblock content %}

@@ -3,7 +3,22 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from . models import MyUser
+from . models import MyUser 
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+from .models import MyUser
+
+
+
+
+
+
+class UsersResources(resources.ModelResource):
+    class Meta:
+        model = MyUser
+        fields = ('email', 'name', 'phone_number','is_admin','is_active',)
+        export_order = ('email', 'name', 'phone_number','is_admin','is_active',)
+
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -60,17 +75,23 @@ class UserAdmin(BaseUserAdmin):
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
-    add_fieldsets = (
-    (None, {
-    'classes': ('wide',),
-    'fields': ('email', 'phone_number', 'name','password1', 'password2'),
-    }),
-    )
+    add_fieldsets = [
+        (
+            None,
+            {
+                "classes": ["wide"],
+                "fields": ["email", "name", "phone_number","password1", "password2"],
+            },
+        ),
+    ]
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
+    resource_class = UsersResources
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserAdmin)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
+
+MyUser.get_short_name = lambda user_instance: f" {user_instance.name} "

@@ -7,6 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.messages.views import SuccessMessageMixin
+from requestitem.models import Message
+
 
 
 # Create your views here.
@@ -29,6 +31,10 @@ class NmmsMaterialListView(ListView):
     model = NmmsMaterial
     context_object_name = 'nmmsMaterials'
     template_name="nmms_materials/list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['requests'] = Message.objects.filter(request_for = 'nmms_material')
+        return context
     
 
 class NmmsMaterialUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -54,7 +60,7 @@ class NmmsMaterialDeleteView(SuccessMessageMixin,LoginRequiredMixin, DeleteView)
     login_url = 'login'     
     context_object_name = 'nmmsMaterial'
     def get_success_message(self, cleaned_data):
-        return f'{self.object.chapter} has been deleted'
+        return f'{self.object.title} has been deleted'
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()

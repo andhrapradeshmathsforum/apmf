@@ -8,7 +8,7 @@
 <span class="navbar-text" >
   <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
   <i class="bi bi-chevron-compact-right"></i>
-  <a href="#" style ="text-decoration:none">Questionpaper</a>
+  <a href="#" style ="text-decoration:none">Questionpapers</a>
 </span>
 {% endblock navigation %}
 
@@ -37,7 +37,7 @@
                       #{{forloop.counter}} - Questionpaper
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title">{{questionpaper.standard}} Class {{questionpaper.exam}} Questionpaper</h5>
+                      <h5 class="card-title">{{questionpaper.standard}} Class {{questionpaper.exam}} </h5>
                       
                       <p class="card-text">{{questionpaper.description}}</p>
               
@@ -56,11 +56,17 @@
                   </div>
                 
         </div>
+        {% empty %}
+        <h5 class="mt-5 text-center">Sorry, at present we have nothing here.</h5>
+
         {% endfor %}
     </div>
     
 </div>
 
    
+<!--requests -->
+
+{% include "dashboard/request.html" %}
    
 {% endblock content %}

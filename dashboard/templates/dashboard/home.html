@@ -15,106 +15,123 @@
 
       
 {% block content %}
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
 <!-- news, posts and quotes section --> 
 <div class="container">
-  <div class="row mt-3">
-    <div class="col-sm-12, col-md-12 col-lg-6 d-flex align-items-stretch">
-      {% if news is not None %}
+  
+  <!-- news item -->
+  <div class="row mt-3 gx-1">
+    <div class="col-sm-12 col-lg-6 d-flex align-items-stretch" >
+      {% if news is not None %}        
+      
       <div class="card mb-3" >
         <div class="row g-0">
-          <div class="col-sm-6">
-            {% if news.image.url is not None %}
-            <img src="{{ news.image.url }}" class="card-img-top " alt="photo">
+          <div class="col-md-6">
+            {% if news.image.url is not None %}            
+            
+            <img src="{{ news.image.url }}" class="img-fluid rounded-start w-100 img-fit  " alt="news phot">
             {% else %}
-            <img src="{% static 'images/apmf_news.png' %}" class="card-img-top  "  alt="photo"> 
+            <img src="{% static 'images/apmf_news.png' %}" class="img-fluid rounded-start w-100 " alt="news photo">
             {% endif %}
           </div>
-          <div class="col-sm-6">
-            <div class="card-body">
-              <h3 class="card-title" style="color:teal">APMF News</h3>
-              <h5 class="card-title" style="color:tomato">{{ news.heading}}</h5>
-              <p class="card-text">{{ news.body|truncatewords:20|safe }}</p>
-              <p class="card-text"><small class="text-muted">Updated by {{news.uploaded_by}}</small></p>
-      
-              <a href="{% url "news_list" %}" class="btn btn-outline-primary">Read more</a> 
-            </div>
-          </div>
-        </div>
-      </div>
-                 
-      {% else %}
-      <div class="card mb-3" >
-        <div class="row g-0">
-          <div class="col-md-6">
-            
-            <img src="{% static 'images/apmf_news.png' %}" class="card-img-top  "  alt="photo"> 
-            
-          </div>
           <div class="col-md-6">
             <div class="card-body">
-              <h3 class="card-title" style="color:teal">APMF News</h3>
-              <h5 class="card-title" style="color:tomato">Latest News from APMF</h5>
-              <p class="card-text">Here, you can read the news of our APMF from the entire state.</p>
-              <p class="card-text"><small class="text-muted">Updated by Admin</small></p>
+              <h3 class="card-title" style="color:crimson;">APMF NEWS</h3>
+              <h5 class="card-title" style="color: blue;">{{ news.heading}}</h5>
+              <p class="card-text">{{ news.body|truncatewords:20|safe}} </p>
+              <p class="card-text "><small class="text-muted me-5">Updated on {{ news.date_added|date:'d/m/h'}} by {{ news.uploaded_by.name|upper}}</small>
+              <a href="{% url 'news_list' %}" class="btn btn-outline-primary btn-sm">Read more</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+        {% else %}
+        <div class="card mb-3" >
+          <div class="row g-0">
+            <div class="col-md-6">
+              
+              <img src="{% static 'images/apmf_news.png' %}" class="img-fluid rounded-start w-100 " alt="news photo">
+             
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h3 class="card-title" style="color:crimson;">APMF NEWS</h3>
+                <h5 class="card-title" style="color: blue;">APMF NEWS HEADING</h5>
+                <p class="card-text">Here, you can read the latest news about the APMF </p>
+                <p class="card-text "><small class="text-muted me-5">Updated by the Admin</small>
+                <a href="#" class="btn btn-outline-primary btn-sm">Read more</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+        <!-- end news item-->
+
+
+         <!-- Posts item-->
+    </div>
+    <div class="col-sm-6 col-lg-3 d-flex align-items-stretch" >
+      <div class="card w-100">
+        {% if posts is not None %}
+        <h5 class="card-header" style="color: teal;">APMF POSTS</h5>
+        <div class="card-body">          
+          <p class="card-text">{{ posts.post|truncatewords:20|safe}}.</p>
+          <p class="card-text "><small class="text-muted me-5">
+            Updated on {{posts.date_added|date:'d/m/y'}} by {{posts.uploaded_by.name}}</small>
+            <a href="{% url "post_list" %}" class="btn btn-sm btn-outline-primary">Read more</a>
+          </p>
+          
+        </div>
+        {% else %}
+        <h5 class="card-header" style="color: teal;">APMF POSTS</h5>
+        <div class="card-body">          
+          <p class="card-text">Here, you can read the posts(Educational Department News).</p>
+          <p class="card-text "><small class="text-muted me-5">
+            Updated  by S.Suneel Kumar</small>
+            <a href="#" class="btn btn-sm btn-outline-primary">Read more</a>
+          </p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="col-sm-6 col-lg-3 d-flex align-items-stretch" >
+      {% if quotes is not None %}   
+      <div class="card w-100">
+        <h5 class="card-header" style="color: teal;">Quote of the day</h5>         
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>{{quotes.quote}}</p>
+            <footer class="blockquote-footer"><cite title="Source Title">{{quotes.author}}</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      </div>
+      {% else %}
+      <div class="card w-100">
+        <h5 class="card-header" style="color: teal;">Quote of the day</h5> 
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p style="color: darkslateblue;">Dear Maths, I am not a therapist. Solve your own problems.</p>
+            <footer class="blockquote-footer"><cite title="Source Title">S Suneel Kumar</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      </div>
+     {% endif %}
+
       
-              <a href="#" class="btn btn-outline-primary">Read more</a> 
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-
     </div>
-    <div class="col-sm-12, col-md-6 col-lg-3 d-flex align-items-stretch">
-      <div class ="card">
-      {% if posts is not None %}
-            <div class="card-body">
-              <h3 class="card-title" style="color:teal">APMF LATEST POST</h3>
-              <p class="card-text">{{ posts|truncatewords:20}}</p>
-              <a href="#" class="btn btn-outline-primary">Read more</a> 
-            </div>
-      {% else %}
-          <div class="card-body">
-            <h3 class="card-title" style="color:teal">APMF LATEST POST</h3>
-            <p class="card-text">Here, you can watch the leatest post posted by AMPF. A post is the information regarding our Educational Department.</p>
-            <a href="#" class="btn btn-outline-primary">Read more</a> 
-          </div>
-      {% endif %}
-        </div>
-    </div>
-    <div class="col-sm-12, col-md-6 col-lg-3 d-flex align-items-stretch">
-      {% if quotes is not None %}
-      <div class="card-body">
-        <h5 class="card-title" style="color: darkblue;">Today's Quote</h5>
-        <figure>         
-          <blockquote class="blockquote">
-            <p style="color:darkgreen;">{{ quotes.quote }}</p>
-          </blockquote>
-          <figcaption class="blockquote-footer">
-            <cite title="Source Title">{{ quotes.author }}</cite>
-          </figcaption>
-          
-        </figure>
-      </div>
-      {% else %}
-      <div class="card-body">
-        <h5 class="card-title" style="color: darkblue;">Today's Quote</h5>
-        <figure>         
-          <blockquote class="blockquote">
-            <p style="color:darkgreen;">Without mathematics, there’s nothing you can do. Everything around you is mathematics. Everything around you is numbers.</p>
-          </blockquote>
-          <figcaption class="blockquote-footer">
-            <cite title="Source Title">Shakuntala Devi</cite>
-          </figcaption>
-          
-        </figure>
-      </div>
-      {% endif %}
-
-    </div>
-  </div>
+  
 </div>
-
 
      
 
@@ -123,14 +140,16 @@
 <div class="container mt-2">
   <div class="row g-3">
     <div class="col-12 col-md-6 col-lg-3 ">
-      <div class="card">
+      <div class="card ">
        <img src="{% static 'images/textbooks.png'%}" class="card-img-top img-fit" alt="textbooks">
        <div class="card-body ">
         <h5 class="card-title">Textbooks </h5>
+        <div class="btn-group-justified">
         <a href="{% url "textbook_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "textbook_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+       </div>
        </div>
       </div>
     </div>
@@ -139,10 +158,12 @@
        <img src="{% static 'images/lessonplan2.png' %}" class="card-img-top img-fit" alt="lessonplans">
        <div class="card-body ">
         <h5 class="card-title">Lessonplans </h5>
+        <div class="btn-group-justified">
         <a href="{% url "lessonplan_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "lessonplan_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -151,10 +172,12 @@
        <img src="{% static 'images/projects2.png'%}" class="card-img-top img-fit" alt="textbook">
        <div class="card-body ">
         <h5 class="card-title">Projects </h5>
+        <div class="btn-group-justified">
         <a href="{% url "project_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "project_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -163,10 +186,12 @@
        <img src="{% static 'images/question_papers.png'%}" class="card-img-top img-fit" alt="textbook">
        <div class="card-body ">
         <h5 class="card-title">Question Papers </h5>
+        <div class="btn-group-justified">
         <a href="{% url "questionpaper_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "questionpaper_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -178,10 +203,12 @@
        <img src="{% static 'images/notes.png'%}" class="card-img-top img-fit" alt="textbook">
        <div class="card-body ">
         <h5 class="card-title">Notes </h5>
+        <div class="btn-group-justified">
         <a href="{% url "notes_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "notes_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -194,10 +221,12 @@
        <img src="{% static 'images/solutions.png'%}" class="card-img-top img-fit" alt="textbook">
        <div class="card-body ">
         <h5 class="card-title">Solutions </h5>
+        <div class="btn-group-justified">
         <a href="{% url "solution_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "solution_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -210,10 +239,12 @@
        <img src="{% static 'images/ppts.png'%}" class="card-img-top img-fit" alt="ppts">
        <div class="card-body ">
         <h5 class="card-title">PPTs </h5>
+        <div class="btn-group-justified">
         <a href="{% url "ppt_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "ppt_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -226,10 +257,12 @@
        <img src="{% static 'images/nmmsmaterials1.png'%}" class="card-img-top img-fit" alt="nmmsmaterial">
        <div class="card-body ">
         <h5 class="card-title">NMMS Material </h5>
+        <div class="btn-group-justified">
         <a href="{% url "nmmsMaterial_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "nmmsMaterial_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -242,27 +275,48 @@
        <img src="{% static 'images/nmmsquestionpapers1.png'%}" class="card-img-top img-fit" alt="nmmsquestionpapers">
        <div class="card-body ">
         <h5 class="card-title">NMMS Question Papers </h5>
+        <div class="btn-group-justified">
         <a href="{% url "nmmsQuestionpaper_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "nmmsQuestionpaper_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
 
 
+ <!-- teaching videos -->
 
-    <!-- videos papers-->
+ <div class="col-12 col-md-6 col-lg-3">
+  <div class="card">
+   <img src="{% static 'images/teachingvideo.png'%}" class="card-img-top img-fit" alt="videos">
+   <div class="card-body ">
+    <h5 class="card-title">Teaching Videos </h5>
+    <div class="btn-group-justified">
+    <a href="{% url "teachingvideo_list" %}" class="btn btn-outline-primary">Explore</a>
+    {% if user.is_authenticated %}
+    <a href="{% url "teachingvideo_add" %}" class="btn btn-outline-primary">Upload</a>
+    {% endif %}
+    </div>
+   </div>
+  </div>
+</div>
+
+
+    <!-- other videos -->
 
     <div class="col-12 col-md-6 col-lg-3">
       <div class="card">
        <img src="{% static 'images/videos.png'%}" class="card-img-top img-fit" alt="videos">
        <div class="card-body ">
-        <h5 class="card-title">Videos </h5>
+        <h5 class="card-title">Other Videos </h5>
+        <div class="btn-group-justified">
         <a href="{% url "video_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "video_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -275,10 +329,12 @@
        <img src="{% static 'images/examplarmaths1.png'%}" class="card-img-top img-fit" alt="examplar maths">
        <div class="card-body ">
         <h5 class="card-title">Examplar Maths </h5>
+        <div class="btn-group-justified">
         <a href="{% url "examplarmath_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "examplarmath_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -291,10 +347,12 @@
        <img src="{% static 'images/mcqs1.png'%}" class="card-img-top img-fit" alt="mcqs">
        <div class="card-body ">
         <h5 class="card-title">MCQs </h5>
+        <div class="btn-group-justified">
         <a href="{% url "mcq_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "mcq_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -305,10 +363,12 @@
        <img src="{% static 'images/ict.png'%}" class="card-img-top img-fit" alt="ict">
        <div class="card-body ">
         <h5 class="card-title">ICT & Simulations </h5>
+        <div class="btn-group-justified">
         <a href="{% url "ict_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "ict_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -319,10 +379,12 @@
        <img src="{% static 'images/worksheet.png'%}" class="card-img-top img-fit" alt="worksheets">
        <div class="card-body ">
         <h5 class="card-title">Worksheets </h5>
+        <div class="btn-group-justified">
         <a href="{% url "worksheet_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "worksheet_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -333,10 +395,12 @@
        <img src="{% static 'images/otherbooks.png'%}" class="card-img-top img-fit" alt="otherbooks">
        <div class="card-body ">
         <h5 class="card-title">Otherbooks </h5>
+        <div class="btn-group-justified">
         <a href="{% url "otherbook_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "otherbook_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -347,10 +411,12 @@
        <img src="{% static 'images/ifp.png'%}" class="card-img-top img-fit" alt="otherbooks">
        <div class="card-body ">
         <h5 class="card-title">IFP Usage </h5>
+        <div class="btn-group-justified">
         <a href="{% url "ifp_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "ifp_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
        </div>
       </div>
     </div>
@@ -361,10 +427,175 @@
        <img src="{% static 'images/handbooks.png'%}" class="card-img-top img-fit" alt="teacher hand book">
        <div class="card-body ">
         <h5 class="card-title">Teacher Hand Books </h5>
+        <div class="btn-group-justified">
         <a href="{% url "handbook_list" %}" class="btn btn-outline-primary">Explore</a>
         {% if user.is_authenticated %}
         <a href="{% url "handbook_add" %}" class="btn btn-outline-primary">Upload</a>
         {% endif %}
+        </div>
+       </div>
+      </div>
+    </div>
+
+    <!-- tlm -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/tlm.png'%}" class="card-img-top img-fit" alt="teacher hand book">
+       <div class="card-body ">
+        <h5 class="card-title">TLM Photos </h5>
+        <div class="btn-group-justified">
+        <a href="{% url "tlm_list" %}" class="btn btn-outline-primary">Explore</a>
+        {% if user.is_authenticated %}
+        <a href="{% url "tlm_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+        </div>
+       </div>
+      </div>
+    </div>
+
+
+
+     <!-- lab manuals -->
+     <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/labs.png'%}" class="card-img-top img-fit" alt="teacher hand book">
+       <div class="card-body ">
+        <h5 class="card-title">Lab Manuals </h5>
+        <div class="btn-group-justified">
+        <a href="{% url "lab_list" %}" class="btn btn-outline-primary">Explore</a>
+        {% if user.is_authenticated %}
+        <a href="{% url "lab_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+        </div>
+       </div>
+      </div>
+    </div>
+
+ <!-- keys -->
+ <div class="col-12 col-md-6 col-lg-3">
+  <div class="card">
+   <img src="{% static 'images/keys.png'%}" class="card-img-top img-fit" alt="keys">
+   <div class="card-body ">
+    <h5 class="card-title">Principles of Valuation / Keys </h5>
+    <div class="btn-group-justified">
+    <a href="{% url "key_list" %}" class="btn btn-outline-primary">Explore</a>
+    {% if user.is_authenticated %}
+        <a href="{% url "key_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+    
+    </div>
+   </div>
+  </div>
+</div>
+
+
+<!-- HOT Questions -->
+<div class="col-12 col-md-6 col-lg-3">
+  <div class="card">
+   <img src="{% static 'images/hot.png'%}" class="card-img-top img-fit" alt="keys">
+   <div class="card-body ">
+    <h5 class="card-title">Case Study / HOT questions </h5>
+    <div class="btn-group-justified">
+    <a href="{% url "hot_list" %}" class="btn btn-outline-primary">Explore</a>
+    {% if user.is_authenticated %}
+        <a href="{% url "hot_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+    
+    </div>
+   </div>
+  </div>
+</div>
+
+
+<!-- mindmaps -->
+<div class="col-12 col-md-6 col-lg-3">
+  <div class="card">
+   <img src="{% static 'images/mindmap.png'%}" class="card-img-top img-fit" alt="keys">
+   <div class="card-body ">
+    <h5 class="card-title">Mindmaps </h5>
+    <div class="btn-group-justified">
+    <a href="{% url "mindmap_list" %}" class="btn btn-outline-primary">Explore</a>
+    {% if user.is_authenticated %}
+        <a href="{% url "mindmap_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+    
+    </div>
+   </div>
+  </div>
+</div>
+
+
+<!-- quizzes -->
+<div class="col-12 col-md-6 col-lg-3">
+  <div class="card">
+   <img src="{% static 'images/quiz.png'%}" class="card-img-top img-fit" alt="keys">
+   <div class="card-body ">
+    <h5 class="card-title">Quizzes </h5>
+    <div class="btn-group-justified">
+    <a href="{% url "quiz_list" %}" class="btn btn-outline-primary">Explore</a>
+    {% if user.is_authenticated %}
+        <a href="{% url "quiz_add" %}" class="btn btn-outline-primary">Upload</a>
+        {% endif %}
+    
+    </div>
+   </div>
+  </div>
+</div>
+
+
+  <!-- request -->
+<div class="col-12 col-md-6 col-lg-3">
+  <div class="card">
+   <img src="{% static 'images/request.png'%}" class="card-img-top img-fit" alt="keys">
+   <div class="card-body ">
+    <h5 class="card-title">Request an item </h5>
+    <div class="btn-group-justified">
+    <a href="{% url "request_item" %}" class="btn btn-outline-primary">Request</a>   
+    
+    </div>
+   </div>
+  </div>
+</div>
+
+<!-- request -->
+<div class="col-12 col-md-6 col-lg-3">
+  <div class="card">
+   <img src="{% static 'images/rp.png'%}" class="card-img-top img-fit" alt="keys">
+   <div class="card-body ">
+    <h5 class="card-title">Resource Persons Registration </h5>
+    <div class="btn-group-justified">
+    <a href="{% url "rp_add" %}" class="btn btn-outline-primary">Register</a>   
+    
+    </div>
+   </div>
+  </div>
+</div>
+
+    <!-- APMF Members -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/members.png'%}" class="card-img-top img-fit" alt="members">
+       <div class="card-body ">
+        <h5 class="card-title">APMF Members </h5>
+        <div class="btn-group-justified">
+        <a href="{% url "member_list" %}" class="btn btn-outline-primary">Explore</a>
+        
+        </div>
+       </div>
+      </div>
+    </div>
+
+
+    <!-- APMF Members -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card">
+       <img src="{% static 'images/mail.png'%}" class="card-img-top img-fit" alt="members">
+       <div class="card-body ">
+        <h5 class="card-title">Contact us </h5>
+        <div class="btn-group-justified">
+        <a href="mailto:andhrapradeshmathsforum@gmail.com" class="btn btn-outline-primary">Mail us</a>
+        
+        </div>
        </div>
       </div>
     </div>

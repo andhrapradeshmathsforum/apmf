@@ -19,7 +19,7 @@
         <div class="col-md-4 mx-auto">
             <h5 class="p-3 mb-3 text-white text-center rounded " style="background-color:teal;">NMMS MATERIAL DELETE</h5>
             <p>Are you sure?</p>
-                    <p>Delete NMMS Materil {{nmmsMateril.title|title}} ?
+                    <p>Delete NMMS Material :  <span style="color:teal"> {{nmmsMaterial.title|title}} ?</span>
             <form  class="ps-2 pe-2" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy}}

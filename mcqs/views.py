@@ -7,6 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.messages.views import SuccessMessageMixin
+from requestitem.models import Message
+
 
 
 # Create your views here.
@@ -29,6 +31,10 @@ class McqListView(ListView):
     model = Mcq
     context_object_name = 'mcqs'
     template_name="mcqs/list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['requests'] = Message.objects.filter(request_for = 'mcq')
+        return context
     
 
 class McqUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):

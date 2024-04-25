@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.messages.views import SuccessMessageMixin
+from requestitem.models import Message
 
 
 # Create your views here.
@@ -29,6 +30,10 @@ class TextbookListView(ListView):
     model = Textbook
     context_object_name = 'textbooks'
     template_name="textbooks/list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['requests'] = Message.objects.filter(request_for = 'text_book')
+        return context
     
 
 class TextbookUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):

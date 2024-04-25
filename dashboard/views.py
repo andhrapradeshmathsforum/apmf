@@ -10,6 +10,7 @@ from ppts import views as ppts_views
 from nmms_materials import views as nmms_material_views
 from nmms_questionpapers import views as nmms_questionpaper_views
 from videos import views as videos_views
+from teachingvideos import views as teachingvideos_views
 from examplarmaths import views as examplarmath_views
 from mcqs import views as mcqs_views
 from icts import views as icts_views
@@ -17,12 +18,19 @@ from worksheets import views as worksheet_views
 from otherbooks import views as otherbook_views
 from handbooks import views as handbook_views
 from ifps import views as ifp_views
+from tlms import views as tlm_views
+from labs import views as lab_views
+from keys import views as key_views
+from hots import views as hot_views
+from mindmaps import views as mindmap_views
+from quizzes import views as quiz_views
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from quotes.models import Quote
 from news.models import News
 from django.views.generic import DetailView
 from videos.models import Video
+from teachingvideos.models import Teachingvideo
 from ifps.models import Ifp
 from posts.models import Post
 
@@ -99,7 +107,7 @@ class DashboardLessonplanDeleteView(lessonplan_views.LessonplanDeleteView):
     success_url = reverse_lazy('dashboard_lessonplan_list')
 
 
-# Dashboard Lessonplans views
+# Dashboard projects views
 class DashboardProjectAddView(project_views.ProjectAddView):
     template_name = 'dashboard/projects/add.html'
     success_url = reverse_lazy('dashboard_project_list')
@@ -225,8 +233,29 @@ class DashboardNmmsQuestionpaperDeleteView(nmms_questionpaper_views.NmmsQuestion
     template_name = 'dashboard/nmms_questionpapers/delete.html'
     success_url = reverse_lazy('dashboard_nmmsQuestionpaper_list')
 
+# Dashboard teachingvideos views
+class DashboardTeachingvideoAddView(teachingvideos_views.TeachingvideoAddView):
+    template_name = 'dashboard/teachingvideos/add.html'
+    success_url = reverse_lazy('dashboard_teachingvideo_list')
 
-# Dashboard videos views
+class DashboardTeachingvideoListView(teachingvideos_views.TeachingvideoListView):
+    template_name = 'dashboard/teachingvideos/list.html'
+    success_url = reverse_lazy('dashboard_teachingvideo_list')
+
+class DashboardTeachingvideoUpdateView(teachingvideos_views.TeachingvideoUpdateView):
+    template_name = 'dashboard/teachingvideos/update.html'
+    success_url = reverse_lazy('dashboard_teachingvideo_list')
+
+class DashboardTeachingvideoDeleteView(teachingvideos_views.TeachingvideoDeleteView):
+    template_name = 'dashboard/teachingvideos/delete.html'
+    success_url = reverse_lazy('dashboard_teachingvideo_list')
+
+class DashboardTeachingvideoDetailView(DetailView):
+    model = Teachingvideo
+    template_name = "dashboard/teachingvideos/details.html"
+    context_object_name= 'teachingvideo'
+
+# Dashboard other videos views
 class DashboardVideoAddView(videos_views.VideoAddView):
     template_name = 'dashboard/videos/add.html'
     success_url = reverse_lazy('dashboard_video_list')
@@ -386,4 +415,124 @@ class DashboardHandbookDeleteView(handbook_views.HandbookDeleteView):
     template_name = 'dashboard/handbooks/delete.html'
     success_url = reverse_lazy('dashboard_handbook_list')
     context_object_name = 'otherbook'
+
+
+
+# Dashboard tlms views
+class DashboardTlmAddView(tlm_views.TlmAddView):
+    template_name = 'dashboard/tlms/add.html'
+    success_url = reverse_lazy('dashboard_tlm_list')
+
+class DashboardTlmListView(tlm_views.TlmListView):
+    template_name = 'dashboard/tlms/list.html'
+    success_url = reverse_lazy('dashboard_tlm_list')
+
+class DashboardTlmUpdateView(tlm_views.TlmUpdateView):
+    template_name = 'dashboard/tlms/update.html'
+    success_url = reverse_lazy('dashboard_tlm_list')
+
+class DashboardTlmDeleteView(tlm_views.TlmDeleteView):
+    template_name = 'dashboard/tlms/delete.html'
+    success_url = reverse_lazy('dashboard_tlm_list')
+    context_object_name = 'tlm'
+
+class DashboardTlmDetailView(DetailView):
+    template_name = "dashboard/tlms/detail.html"
+    context_object_name = 'tlm'
+
+
+
+# Dashboard LAB MANUALS views
+class DashboardLabAddView(lab_views.LabAddView):
+    template_name = 'dashboard/labs/add.html'
+    success_url = reverse_lazy('dashboard_lab_list')
+
+class DashboardLabListView(lab_views.LabListView):
+    template_name = 'dashboard/labs/list.html'
+    success_url = reverse_lazy('dashboard_lab_list')
+
+class DashboardLabUpdateView(lab_views.LabUpdateView):
+    template_name = 'dashboard/labs/update.html'
+    success_url = reverse_lazy('dashboard_lab_list')
+
+class DashboardLabDeleteView(lab_views.LabDeleteView):
+    template_name = 'dashboard/labs/delete.html'
+    success_url = reverse_lazy('dashboard_lab_list')
+    context_object_name = 'lab'
+
+
+
+# Dashboard keys views
+class DashboardKeyAddView(key_views.KeyAddView):
+    template_name = 'dashboard/keys/add.html'
+    success_url = reverse_lazy('dashboard_key_list')
+
+class DashboardKeyListView(key_views.KeyListView):
+    template_name = 'dashboard/keys/list.html'
+    success_url = reverse_lazy('dashboard_key_list')
+
+class DashboardKeyUpdateView(key_views.KeyUpdateView):
+    template_name = 'dashboard/keys/update.html'
+    success_url = reverse_lazy('dashboard_key_list')
+
+class DashboardKeyDeleteView(key_views.KeyDeleteView):
+    template_name = 'dashboard/keys/delete.html'
+    success_url = reverse_lazy('dashboard_key_list')
+    context_object_name = 'key'
+
+
+
+# Dashboard hots views
+class DashboardHotAddView(hot_views.HotAddView):
+    template_name = 'dashboard/hots/add.html'
+    success_url = reverse_lazy('dashboard_hot_list')
+
+class DashboardHotListView(hot_views.HotListView):
+    template_name = 'dashboard/hots/list.html'
+    success_url = reverse_lazy('dashboard_hot_list')
+
+class DashboardHotUpdateView(hot_views.HotUpdateView):
+    template_name = 'dashboard/hots/update.html'
+    success_url = reverse_lazy('dashboard_hot_list')
+
+class DashboardHotDeleteView(hot_views.HotDeleteView):
+    template_name = 'dashboard/hots/delete.html'
+    success_url = reverse_lazy('dashboard_hot_list')
+
+
+# Dashboard mindmap views
+class DashboardMindmapAddView(mindmap_views.MindmapAddView):
+    template_name = 'dashboard/mindmaps/add.html'
+    success_url = reverse_lazy('dashboard_mindmap_list')
+
+class DashboardMindmapListView(mindmap_views.MindmapListView):
+    template_name = 'dashboard/mindmaps/list.html'
+    success_url = reverse_lazy('dashboard_mindmap_list')
+
+class DashboardMindmapUpdateView(mindmap_views.MindmapUpdateView):
+    template_name = 'dashboard/mindmaps/update.html'
+    success_url = reverse_lazy('dashboard_mindmap_list')
+
+class DashboardMindmapDeleteView(mindmap_views.MindmapDeleteView):
+    template_name = 'dashboard/mindmaps/delete.html'
+    success_url = reverse_lazy('dashboard_mindmap_list')
+    
+
+
+# Dashboard quiz views
+class DashboardQuizAddView(quiz_views.QuizAddView):
+    template_name = 'dashboard/quizzes/add.html'
+    success_url = reverse_lazy('dashboard_quiz_list')
+
+class DashboardQuizListView(quiz_views.QuizListView):
+    template_name = 'dashboard/quizzes/list.html'
+    success_url = reverse_lazy('dashboard_quiz_list')
+
+class DashboardQuizUpdateView(quiz_views.QuizUpdateView):
+    template_name = 'dashboard/quizzes/update.html'
+    success_url = reverse_lazy('dashboard_quiz_list')
+
+class DashboardQuizDeleteView(quiz_views.QuizDeleteView):
+    template_name = 'dashboard/quizzes/delete.html'
+    success_url = reverse_lazy('dashboard_quiz_list')
 

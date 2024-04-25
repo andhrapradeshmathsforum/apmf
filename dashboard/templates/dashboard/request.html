@@ -1,0 +1,43 @@
+<!--requests -->
+
+{% if requests %}
+
+
+
+<div class="container mb-2 mt-2">
+  <h3 style="margin-top:5px; text-align: center; color:teal">REQUESTS FOR {{requests.0.get_request_for_display}}</h3>
+</div>
+
+<div class="container ">
+  
+  <div class="row gy-3">
+      {% for  request in requests  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              
+
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color:tomato;">
+                    #{{forloop.counter}} - Request for {{request.get_request_for_display}}
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">{{request.message}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      
+                    <em class="">by {{request.name}}  on {{request.date_added|date:'d/m/y'}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+
+      {% endfor %}
+
+      
+  </div>
+  
+</div>
+
+
+{% endif %}

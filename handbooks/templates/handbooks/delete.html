@@ -19,7 +19,7 @@
         <div class="col-md-4 mx-auto">
             <h5 class="p-3 mb-3 text-white text-center rounded " style="background-color:teal;">TEACHER HAND BOOK DELETE</h5>
             <p>Are you sure?</p>
-                    <p>Delete the teacher hand book : {{handbook.standard}} Class {{handbook.title|title}} ?
+                    <p>Delete the teacher hand book :<span style="color:teal;"> {{handbook.standard}} Class {{handbook.title|title}} ?</span></p>
             <form  class="ps-2 pe-2" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy}}

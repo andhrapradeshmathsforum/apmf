@@ -1,120 +1,70 @@
-<div class="container-fluid">
+<div class="container-fluid" style="overflow-y:scroll; height:90%">
     <h6 class ="p-1 text-center" style="background-color:teal; color:white"> Site Administration</h6>
     
-                <!-- Textbooks-->
-                    <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_textbook_list" %}" style="text-decoration: none;">Textbooks</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_textbook_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-    
-    
-                    <!-- Lessonplans-->
-                    <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_lessonplan_list" %}" style="text-decoration: none;">Lessonplans</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_lessonplan_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-
-
-                    <!-- Projects-->
-                    <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_project_list" %}" style="text-decoration: none;">Projects</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_project_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-
-
-                    <!-- Questionpapers-->
-                    <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_questionpaper_list" %}" style="text-decoration: none;">Questionpapers</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_questionpaper_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-
-
-                     <!-- Notes-->
-                     <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_notes_list" %}" style="text-decoration: none;">Notes</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_notes_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-
-
-                    <!-- Solutions-->
-                    <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_solution_list" %}" style="text-decoration: none;">Solutions</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_solution_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-
-
-                    <!-- ppts-->
-                    <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_ppt_list" %}" style="text-decoration: none;">PPTs</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_ppt_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-
-                     <!-- nmms materials-->
-                     <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_nmmsMaterial_list" %}" style="text-decoration: none;">NMMS Material</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_nmmsMaterial_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-
-                    <!-- nmms questionpaper-->
-                    <div class="row border-bottom border-1 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="{% url "dashboard_nmmsQuestionpaper_list" %}" style="text-decoration: none;">NMMS Questionpapers</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="{% url "dashboard_nmmsQuestionpaper_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
-                        </div>
-                    </div>
-
-
-                 <!-- videos-->
+                 <!-- hots-->
                  <div class="row border-bottom border-1 pt-2 pb-2">
                     <div class="col-8">
-                        <a href="{% url "dashboard_video_list" %}" style="text-decoration: none;">Videos</a>
+                        <a href="{% url "dashboard_hot_list" %}" style="text-decoration: none;">CASE STUDY / HOT QUESTIONS</a>
                     </div>
                     <div class="col-4">
-                        <a href="{% url "dashboard_video_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                        <a href="{% url "dashboard_hot_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
                     </div>
                 </div>
 
-                <!-- Examplar maths-->
-                <div class="row border-bottom border-1 pt-2 pb-2">
+
+
+                 <!-- Examplar maths-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
                     <div class="col-8">
                         <a href="{% url "dashboard_examplarmath_list" %}" style="text-decoration: none;">Examplar Maths</a>
                     </div>
                     <div class="col-4">
                         <a href="{% url "dashboard_examplarmath_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+                 <!-- icts-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_ict_list" %}" style="text-decoration: none;">ICT & Simulations</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_ict_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+                <!-- ifp usage-->
+                <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_ifp_list" %}" style="text-decoration: none;">IFP Usage Videos</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_ifp_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+                 <!-- LAB MANUALS-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_lab_list" %}" style="text-decoration: none;">Lab Manuals</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_lab_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+
+                 <!-- Lessonplans-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_lessonplan_list" %}" style="text-decoration: none;">Lessonplans</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_lessonplan_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
                     </div>
                 </div>
 
@@ -129,23 +79,47 @@
                     </div>
                 </div>
 
-                <!-- icts-->
-                <div class="row border-bottom border-1 pt-2 pb-2">
+
+                 <!-- MINDMAPS-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
                     <div class="col-8">
-                        <a href="{% url "dashboard_ict_list" %}" style="text-decoration: none;">ICT % Simulations</a>
+                        <a href="{% url "dashboard_mindmap_list" %}" style="text-decoration: none;">Mindmaps</a>
                     </div>
                     <div class="col-4">
-                        <a href="{% url "dashboard_ict_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                        <a href="{% url "dashboard_mindmap_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
                     </div>
                 </div>
 
-                <!-- worksheets-->
+
+                <!-- nmms questionpaper-->
                 <div class="row border-bottom border-1 pt-2 pb-2">
                     <div class="col-8">
-                        <a href="{% url "dashboard_worksheet_list" %}" style="text-decoration: none;">Worksheets</a>
+                        <a href="{% url "dashboard_nmmsQuestionpaper_list" %}" style="text-decoration: none;">NMMS Questionpapers</a>
                     </div>
                     <div class="col-4">
-                        <a href="{% url "dashboard_worksheet_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                        <a href="{% url "dashboard_nmmsQuestionpaper_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+                <!-- nmms materials-->
+                <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_nmmsMaterial_list" %}" style="text-decoration: none;">NMMS Material</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_nmmsMaterial_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+                <!-- Notes-->
+                <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_notes_list" %}" style="text-decoration: none;">Notes</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_notes_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
                     </div>
                 </div>
 
@@ -161,18 +135,82 @@
                 </div>
 
 
-                <!-- otherbooks-->
-                <div class="row border-bottom border-1 pt-2 pb-2">
+                 <!-- other videos-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
                     <div class="col-8">
-                        <a href="{% url "dashboard_ifp_list" %}" style="text-decoration: none;">IFP Usage Videos</a>
+                        <a href="{% url "dashboard_video_list" %}" style="text-decoration: none;">Other Videos</a>
                     </div>
                     <div class="col-4">
-                        <a href="{% url "dashboard_ifp_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                        <a href="{% url "dashboard_video_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
                     </div>
                 </div>
 
-                <!-- handbooks-->
+
+                 <!-- ppts-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_ppt_list" %}" style="text-decoration: none;">PPTs</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_ppt_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+                  <!-- KEYS-->
+                  <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_key_list" %}" style="text-decoration: none;">PRINCIPLES OF VALUATION / KEY</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_key_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+                 <!-- Projects-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_project_list" %}" style="text-decoration: none;">Projects</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_project_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+
+                  <!-- Questionpapers-->
+                  <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_questionpaper_list" %}" style="text-decoration: none;">Questionpapers</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_questionpaper_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+                 <!-- quizzes-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_quiz_list" %}" style="text-decoration: none;">Quizzes</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_quiz_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+                <!-- Solutions-->
                 <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_solution_list" %}" style="text-decoration: none;">Solutions</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_solution_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+                 <!-- handbooks-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
                     <div class="col-8">
                         <a href="{% url "dashboard_handbook_list" %}" style="text-decoration: none;">Teachers Hand Books</a>
                     </div>
@@ -180,4 +218,50 @@
                         <a href="{% url "dashboard_handbook_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
                     </div>
                 </div>
+                
+
+                 <!-- Teaching videos-->
+                 <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_teachingvideo_list" %}" style="text-decoration: none;">Teaching Videos</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_teachingvideo_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+                    <!-- Textbooks-->
+                    <div class="row border-bottom border-1 pt-2 pb-2">
+                        <div class="col-8">
+                            <a href="{% url "dashboard_textbook_list" %}" style="text-decoration: none;">Textbooks</a>
+                        </div>
+                        <div class="col-4">
+                            <a href="{% url "dashboard_textbook_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                        </div>
+                    </div>
+    
+    
+                   <!-- tlm-->
+                <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_tlm_list" %}" style="text-decoration: none;">TLM Photos</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_tlm_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+                <!-- worksheets-->
+                <div class="row border-bottom border-1 pt-2 pb-2">
+                    <div class="col-8">
+                        <a href="{% url "dashboard_worksheet_list" %}" style="text-decoration: none;">Worksheets</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url "dashboard_worksheet_add" %}" style="text-decoration: none;"><i class="bi bi-file-earmark-plus"></i>Add</a>
+                    </div>
+                </div>
+
+
+               
     </div>

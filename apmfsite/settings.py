@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -53,17 +53,31 @@ INSTALLED_APPS = [
     'ifps.apps.IfpsConfig', # ifp videos app
     'handbooks.apps.HandbooksConfig', # teacher hand books app
     'posts.apps.PostsConfig', # posts app
+    'tlms.apps.TlmsConfig', # tlm photos app
+    'labs.apps.LabsConfig', # lab manuals app
+    'teachingvideos.apps.TeachingvideosConfig', # teaching videos app
+    'members.apps.MembersConfig', # apmf members
+    'keys.apps.KeysConfig', # principles of valuation app
+    'hots.apps.HotsConfig', # cast study and hot questions
+    'mindmaps.apps.MindmapsConfig', # mindmaps
+    'quizzes.apps.QuizzesConfig', # quizzes app
+    'requestitem.apps.RequestitemConfig', # request item app
+    'rps.apps.RpsConfig', # rps app
+    'search.apps.SearchConfig', # search app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles',    
      # third party apps
     'crispy_forms',
     'crispy_bootstrap5',
     'embed_video',
     'ckeditor',
+    'imagekit',
+    'import_export'
+    
 ]
 
 MIDDLEWARE = [
@@ -147,6 +161,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     ]
+STATIC_DIR = os.path.join (BASE_DIR, "static")
+STATIC_ROOT = os.path.join (BASE_DIR,'static files')
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
@@ -181,14 +198,18 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootsrap5"
 
+ENTER_P    = 1 # default
+ENTER_BR   = 2
+ENTER_DIV  = 3
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'full',
-        'height': 300,
+        'toolbar': 'Standard',               
+        'enterMode': 2,
+        'mathJaxClass': 'mathjax-latex',
         'mathJaxLib': '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML',
         'extraPlugins': ','.join(['mathjax',]),
-        
     },
-    
 }
+
+

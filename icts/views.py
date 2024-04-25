@@ -7,6 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.messages.views import SuccessMessageMixin
+from requestitem.models import Message
+
 
 
 # Create your views here.
@@ -29,6 +31,10 @@ class IctListView(ListView):
     model = Ict
     context_object_name = 'icts'
     template_name="icts/list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['requests'] = Message.objects.filter(request_for = 'ict')
+        return context
     
 
 class IctUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -54,7 +60,7 @@ class IctDeleteView(SuccessMessageMixin,LoginRequiredMixin, DeleteView):
     login_url = 'login'     
     context_object_name ='ict'
     def get_success_message(self, cleaned_data):
-        return f'{self.object.itle} site has been deleted'
+        return f'{self.object.title} site has been deleted'
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()

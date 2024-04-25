@@ -20,7 +20,7 @@ class Post(models.Model):
         ordering = ['-date_added']
 
     def __str__(self):
-        return self.name
+        return self.post
 
     def get_absolute_url(self):
         return reverse("post_detail", kwargs={"pk": self.pk})

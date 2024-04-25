@@ -13,7 +13,10 @@ class Ifp(models.Model):
     date_updated = models.DateTimeField(auto_now = True)
     uploaded_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     video = EmbedVideoField()  # same like models.URLField()
+
     class Meta:
+        verbose_name = 'IFP Usage Video'
+        verbose_name_plural = 'IFP Usage Videos'
         ordering = [
             'date_added'
         ]

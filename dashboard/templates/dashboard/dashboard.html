@@ -45,7 +45,7 @@
                     <li class="nav-item dropdown ms-5 dropdown-menu-right">
                               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color:white;">Welcome, {{ user.name }}</a>
                               <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{% url "dashboard" %}">My dashboard</a></li>
+                                        <li><a class="dropdown-item" href="{% url "dashboard" %}">Dashboard</a></li>
                                         <li><a class="dropdown-item" href="{% url "password_change" %}">Change password</a></li>
                                         <div class="dropdown-divider"></div>
                                         <li><a class="dropdown-item" href="{% url "logout_confirm" %}">Log Out</a></li>
@@ -72,9 +72,9 @@
 
 <!-- Heading --> 
 
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-5" >
     <div class="row">
-        <div class="col-md-3    ">
+        <div class="col-md-3" >
                {% include "dashboard/sidebar.html" %}
         </div>
         <div class="col-md-9">

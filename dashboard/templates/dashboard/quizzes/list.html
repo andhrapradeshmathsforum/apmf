@@ -1,0 +1,63 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% block title %}Quizzes list{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="{% url "dashboard" %}" style ="text-decoration:none">Dashboard</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">Quizzes</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<h6 class ="p-1 text-center" style="background-color:teal; color:white"> QUIZZES</h6>
+
+<table class="table table-sm table-hover">
+    <thead class="table-primary" >
+      <tr  >
+        <th scope="col">S.No.</th>
+        <th scope="col">Class</th>
+        <th scope="col">Topic</th>
+        <th scope="col">Sub Topic</th>
+        <th scope="col">Date added</th>
+        <th scope="col">Date updated</th> 
+        <th scope="col">Uploader email</th>
+        <th scope="col">Uploader name</th> 
+        <th scope="col">Phone No.</th>       
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for quiz in  quizs %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{quiz.standard}}</td>
+        <td>{{quiz.topic|title}}</td>
+        <td>{{quiz.sub_topic|title}}</td>
+        <td>{{quiz.date_added|date:'d/m/y'}}</td>
+        <td>{{quiz.date_updated|date:'d/m/y'}}</td>
+        <td>{{quiz.uploaded_by.email}}</td>
+        <td>{{quiz.uploaded_by.name|upper}}</td>
+        <td>{{quiz.uploaded_by.phone_number}}</td>
+        <td><a style="text-decoration:none;" href= '{{ quiz.link }}'><i class="bi bi-eye"></i>Participate </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_quiz_update" quiz.pk %}'><i class="bi bi-pencil-fill"></i>Edit </a>|
+          <a style="text-decoration:none;" href= '{% url "dashboard_quiz_delete" quiz.pk %}'><i class="bi bi-file-earmark-minus"></i>Delete </a> </td>
+        
+      </tr>
+    
+      {% endfor %}
+      
+      <tbody>
+      </table>
+      Total: {{quiz|length}} Quiz{{quiz|length|pluralize:'zes'}}
+{% endblock content %}

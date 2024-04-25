@@ -42,6 +42,18 @@ urlpatterns = [
     path('otherbooks/', include('otherbooks.urls')),
     path('ifp-usage/', include('ifps.urls')),
     path('teacher-hand-books/',include('handbooks.urls')),
+    path('posts/', include('posts.urls')),
+    path('tlm/', include('tlms.urls')),
+    path('lab-manuals/', include('labs.urls')),
+    path('teaching-videos/', include('teachingvideos.urls')),
+    path('apmf-members/', include('members.urls')),
+    path('keys/', include('keys.urls')),
+    path('hots/', include('hots.urls')),
+    path('mindmaps/', include('mindmaps.urls')),
+    path('quizzes/', include('quizzes.urls')),
+    path('',include('requestitem.urls')),
+    path('', include('rps.urls')),
+    path('', include('search.urls')),
 ]
 
 admin.site.site_header = 'APMF Administration'
@@ -49,3 +61,4 @@ admin.site.site_title  = 'APMF'
 admin.site.index_title   = 'Admin'
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

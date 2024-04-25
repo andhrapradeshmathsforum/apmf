@@ -1,0 +1,74 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}TLM Photos{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">TLM Photos</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<div class="container mb-2">
+    <h3 style="margin-top:5px; text-align: center; color:teal">TLM PHOTOS</h3>
+</div>
+
+<div class="container ">
+  <div class="row gy-3 deflex align-items-stretch">
+  {% for tlm in tlms %}
+  
+          <div class="col-sm-12 col-md-3 shadow-sm">
+                    <div class="card h-100" >
+                      <img src="{{  tlm.image.url }}" class="card-img-top img-fit" alt="...">
+                              <div class="card-body" style="display: flex; height:100%; flex-direction: column;">
+                                <h5 class="card-title">{{tlm.title}}</h5>
+                                <p class="card-text">{{ tlm.description}}</p>
+                                <div class="card-footer text-muted">
+                                  {% if user.is_authenticated %}
+                                  <div>
+                                    <a href="{% url 'tlm_details' tlm.pk %}" class="btn btn-primary btn-sm">View</a>
+                                  <a href="{% url 'tlm_update' tlm.pk %}" class="btn btn-info btn-sm">Update</a>
+                                  <a href="{% url 'tlm_delete' tlm.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                                  </div>
+                                  {% endif %}
+                                  
+                                  <em class="small">Uploaded on {{tlm.date_added|date:'d/m/y'}} by {{tlm.uploaded_by.name|title}}</em>
+                                  
+                                  
+                                </div>
+                                
+                              </div>
+                    </div>
+          </div>
+          {% empty %}
+          <h5 class="mt-5 text-center">Sorry, at present we have nothing here.</h5>
+
+          {% endfor %}
+  </div>
+    
+  
+    
+    
+        
+    
+</div>
+
+   
+
+<!--requests -->
+
+{% include "dashboard/request.html" %}
+   
+{% endblock content %}

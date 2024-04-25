@@ -62,6 +62,13 @@ urlpatterns = [
     path('dashboard/nmms-questionpaper/update/<int:pk>/', views.DashboardNmmsQuestionpaperUpdateView.as_view(), name='dashboard_nmmsQuestionpaper_update'),
     path('dashboard/nmms-questionpaper/delete/<int:pk>/', views.DashboardNmmsQuestionpaperDeleteView.as_view(), name='dashboard_nmmsQuestionpaper_delete'),
 
+# dash board teachingvideos path
+    path('dashboard/teaching-video/', views.DashboardTeachingvideoListView.as_view(), name='dashboard_teachingvideo_list'),
+    path('dashboard/teaching-video/add/', views.DashboardTeachingvideoAddView.as_view(), name='dashboard_teachingvideo_add'),
+    path('dashboard/teaching-video/update/<int:pk>/', views.DashboardTeachingvideoUpdateView.as_view(), name='dashboard_teachingvideo_update'),
+    path('dashboard/teaching-video/delete/<int:pk>/', views.DashboardTeachingvideoDeleteView.as_view(), name='dashboard_teachingvideo_delete'),
+    path('dashboard/teaching-video/detials/<int:pk>/', views.DashboardTeachingvideoDetailView.as_view(), name='dashboard_teachingvideo_detail'),
+
 
 # dash board videos path
     path('dashboard/video/', views.DashboardVideoListView.as_view(), name='dashboard_video_list'),
@@ -112,11 +119,55 @@ urlpatterns = [
     path('dashboard/ifp-usage/detials/<int:pk>/', views.DashboardIfpDetailView.as_view(), name='dashboard_ifp_detail'),
 
 
-# dash board ifp usage videos path
+# dash board handbook path
     path('dashboard/handbooks/', views.DashboardHandbookListView.as_view(), name='dashboard_handbook_list'),
     path('dashboard/handbooks/add/', views.DashboardHandbookAddView.as_view(), name='dashboard_handbook_add'),
     path('dashboard/handbooks/<int:pk>/', views.DashboardHandbookUpdateView.as_view(), name='dashboard_handbook_update'),
-    path('dashboard/handbooks/delete/<int:pk>/', views.DashboardHandbookDeleteView.as_view(), name='dashboard_handbook_delete'),   
+    path('dashboard/handbooks/delete/<int:pk>/', views.DashboardHandbookDeleteView.as_view(), name='dashboard_handbook_delete'),  
+
+
+# dash board tlms path
+    path('dashboard/tlm/', views.DashboardTlmListView.as_view(), name='dashboard_tlm_list'),
+    path('dashboard/tlm/add/', views.DashboardTlmAddView.as_view(), name='dashboard_tlm_add'),
+    path('dashboard/tlm/<int:pk>/', views.DashboardTlmUpdateView.as_view(), name='dashboard_tlm_update'),
+    path('dashboard/tlm/delete/<int:pk>/', views.DashboardTlmDeleteView.as_view(), name='dashboard_tlm_delete'),   
+    path('dashboard/tlm/detials/<int:pk>/', views.DashboardTlmDetailView.as_view(), name='dashboard_tlm_detail'),
+
+
+# dash board lab manuals path
+    path('dashboard/lab/', views.DashboardLabListView.as_view(), name='dashboard_lab_list'),
+    path('dashboard/lab/add/', views.DashboardLabAddView.as_view(), name='dashboard_lab_add'),
+    path('dashboard/lab/<int:pk>/', views.DashboardLabUpdateView.as_view(), name='dashboard_lab_update'),
+    path('dashboard/lab/delete/<int:pk>/', views.DashboardLabDeleteView.as_view(), name='dashboard_lab_delete'),   
+ 
+
+# dash board keys path
+    path('dashboard/keys/', views.DashboardKeyListView.as_view(), name='dashboard_key_list'),
+    path('dashboard/leys/add/', views.DashboardKeyAddView.as_view(), name='dashboard_key_add'),
+    path('dashboard/keys/<int:pk>/', views.DashboardKeyUpdateView.as_view(), name='dashboard_key_update'),
+    path('dashboard/keys/delete/<int:pk>/', views.DashboardKeyDeleteView.as_view(), name='dashboard_key_delete'),   
+ 
+ 
+ #dash board hots path
+    path('dashboard/case-study-hot-questions/', views.DashboardHotListView.as_view(), name='dashboard_hot_list'),
+    path('dashboard/case-study-hot-questions/add/', views.DashboardHotAddView.as_view(), name='dashboard_hot_add'),
+    path('dashboard/case-study-hot-questions/<int:pk>/', views.DashboardHotUpdateView.as_view(), name='dashboard_hot_update'),
+    path('dashboard/case-study-hot-questions/delete/<int:pk>/', views.DashboardHotDeleteView.as_view(), name='dashboard_hot_delete'),   
+ 
+ 
+ #dash board mindmaps path
+    path('dashboard/mindmaps/', views.DashboardMindmapListView.as_view(), name='dashboard_mindmap_list'),
+    path('dashboard/mindmaps/add/', views.DashboardMindmapAddView.as_view(), name='dashboard_mindmap_add'),
+    path('dashboard/mindmaps/<int:pk>/', views.DashboardMindmapUpdateView.as_view(), name='dashboard_mindmap_update'),
+    path('dashboard/mindmaps/delete/<int:pk>/', views.DashboardMindmapDeleteView.as_view(), name='dashboard_mindmap_delete'), 
+
+
+
+#dash board quiz path
+    path('dashboard/quizzes/', views.DashboardQuizListView.as_view(), name='dashboard_quiz_list'),
+    path('dashboard/quizzes/add/', views.DashboardQuizAddView.as_view(), name='dashboard_quiz_add'),
+    path('dashboard/quizzes/<int:pk>/', views.DashboardQuizUpdateView.as_view(), name='dashboard_quiz_update'),
+    path('dashboard/quizzes/delete/<int:pk>/', views.DashboardQuizDeleteView.as_view(), name='dashboard_quiz_delete'), 
     
     
     

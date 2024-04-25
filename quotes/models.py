@@ -12,6 +12,6 @@ class Quote (models.Model):
         ordering = ['date_added']
 
     def __str__(self):
-        return self.author
+        return self.quote
 
     

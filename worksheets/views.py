@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.messages.views import SuccessMessageMixin
+from requestitem.models import Message
 
 
 # Create your views here.
@@ -29,6 +30,12 @@ class WorksheetListView(ListView):
     model = Worksheet
     context_object_name = 'worksheets'
     template_name="worksheets/list.html"
+    paginate_by = 9
+   
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['requests'] = Message.objects.filter(request_for = 'worksheet')
+        return context
     
 
 class WorksheetUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -53,6 +60,7 @@ class WorksheetDeleteView(SuccessMessageMixin,LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('worksheet_list')
     login_url = 'login'     
     context_object_name ='worksheet'
+    
     def get_success_message(self, cleaned_data):
         return f'{self.object.standard} Class {self.object.chapter} Worksheet has been deleted'
 

@@ -1,0 +1,810 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load embed_video_tags %}
+
+
+{% block title %}Search results{% endblock title %}
+
+{% block navigation %}
+<span class="navbar-text" >
+  <a href="{% url "home" %}" style ="text-decoration:none">Home</a>
+  <i class="bi bi-chevron-compact-right"></i>
+  <a href="#" style ="text-decoration:none">Search results</a>
+</span>
+{% endblock navigation %}
+
+{% block content %}
+
+<div class="container mb-2">
+  <h3 style="margin-top:5px; text-align: center; color:teal">SEARCH RESULTS FOR <span style="color:tomato"> {{query|upper}}</span></h3>
+
+<div class="row gy-3">
+{% if textbooks  %}
+
+        {% for textbook in textbooks  %}
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">              
+                <div class="card h-100 box-shadow">
+                    <div class="card-header" style="background-color: cadetblue;">
+                      #{{forloop.counter}} - Textbook
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{textbook.standard}} Class {{textbook.semester|capfirst}}</h5>
+                      <h4 class="card-title">{{textbook.title|title}}</h4>
+                      <p class="card-text">{{textbook.description}}</p>
+                      
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="btn-group-justified ">
+                        <a href="{{textbook.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'textbook_update' textbook.pk %}" class="btn btn-info btn-sm">Update</a>
+                        <a href="{% url 'textbook_delete' textbook.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        {% endif %}
+                        </div>
+                      <em class="">Uploaded on {{textbook.date_added|date:'d/m/y'}} by {{textbook.uploaded_by.name|title}}</em>
+                    </div>
+                  </div>
+        </div>        
+       
+        {% endfor %}
+      
+{% endif %}
+
+
+{% if lessonplans %}
+
+     {% for lessonplan in lessonplans  %}
+     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm"> 
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Lessonplan
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{lessonplan.standard}} Class Lessonplan</h5>
+                    <h4 class="card-title">{{lessonplan.chapter|title}}</h4>
+                    <p class="card-text">{{lessonplan.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{lessonplan.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'lessonplan_update' lessonplan.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'lessonplan_delete' lessonplan.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{lessonplan.date_added|date:'d/m/y'}} by {{lessonplan.uploaded_by.name|title}}</em>
+                  </div>
+                </div>              
+              </div>
+            
+      {% endfor %}
+ 
+{% endif %}
+
+
+{% if projects %}  
+      {% for project in projects  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm"> 
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Project
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{project.standard}} Class {{project.exam}} Project</h5>
+                    <h4 class="card-title">{{project.chapter|title}}</h4>
+                    <p class="card-text">{{project.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{project.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'project_update' project.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'project_delete' project.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{project.date_added|date:'d/m/y'}} by {{project.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+        </div>
+      
+
+      {% endfor %}
+ 
+{% endif %}
+
+
+{% if questionpapers %}
+
+      {% for questionpaper in  questionpapers %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              
+
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Questionpaper
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{questionpaper.standard}} Class {{questionpaper.exam}} </h5>
+                    
+                    <p class="card-text">{{questionpaper.description}}</p>
+            
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{questionpaper.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'questionpaper_update' questionpaper.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'questionpaper_delete' questionpaper.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{questionpaper.date_added|date:'d/m/y'}} by {{questionpaper.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+      {% endfor %}
+  
+{% endif %}
+
+
+{% if notes %}
+
+      {% for note in notes  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              
+
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Notes
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{note.standard}} Class Notes</h5>
+                    <h4 class="card-title">{{note.chapter|title}}</h4>
+                    <p class="card-text">{{note.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{note.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'notes_update' note.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'notes_delete' note.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{note.date_added|date:'d/m/y'}} by {{note.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+      {% endfor %}
+  
+{% endif %}
+
+
+{% if solutions %}
+
+      {% for solution in solutions  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm"> 
+              
+
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Solutions
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{solution.standard}} Class Solutions</h5>
+                    <h4 class="card-title">{{solution.chapter|title}}</h4>
+                    <p class="card-text">{{solution.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{solution.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'solution_update' solution.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'solution_delete' solution.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{solution.date_added|date:'d/m/y'}} by {{solution.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+
+      {% endfor %}
+ 
+{% endif %}
+
+{% if ppts %}
+
+      {% for ppt in ppts  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - PPT
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ppt.standard}} Class PPT</h5>
+                    <h4 class="card-title">{{ppt.chapter|title}}</h4>
+                    <p class="card-text">{{ppt.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{ppt.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'ppt_update' ppt.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'ppt_delete' ppt.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{ppt.date_added|date:'d/m/y'}} by {{ppt.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+
+      {% endfor %}
+
+{% endif %}
+
+{% if nmmsMaterials %}
+
+      {% for nmmsMaterial in nmmsMaterials  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">  
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - NMMS Material
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{nmmsMaterial.title|title}}</h5>
+                    <p class="card-text">{{nmmsMaterial.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{nmmsMaterial.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'nmmsMaterial_update' nmmsMaterial.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'nmmsMaterial_delete' nmmsMaterial.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{nmmsMaterial.date_added|date:'d/m/y'}} by {{nmmsMaterial.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+     
+      {% endfor %}
+  
+{% endif %}
+
+
+{% if nmmsQuestionpapers %}
+      {% for nmmsQuestionpaper in nmmsQuestionpapers  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm"> 
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - NMMS Questionpapers
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{nmmsQuestionpaper.title|title}}</h5>
+                    <p class="card-text">{{nmmsQuestionpaper.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{nmmsQuestionpaper.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'nmmsQuestionpaper_update' nmmsQuestionpaper.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'nmmsQuestionpaper_delete' nmmsQuestionpaper.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{nmmsQuestionpaper.date_added|date:'d/m/y'}} by {{nmmsQuestionpaper.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+      {% endfor %}
+ 
+{% endif %}
+
+
+
+
+
+{% if examplarmaths %}
+
+      {% for examplarmath in examplarmaths  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm"> 
+              
+
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Examplar Maths
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{examplarmath.standard}} Class </h5>
+                    <h4 class="card-title">{{examplarmath.title|title}}</h4>
+                    <p class="card-text">{{examplarmath.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{examplarmath.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'examplarmath_update' examplarmath.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'examplarmath_delete' examplarmath.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{examplarmath.date_added|date:'d/m/y'}} by {{examplarmath.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+
+      {% endfor %}
+  
+{% endif %}
+
+{% if mcqs %}
+
+      {% for mcq in mcqs  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm"> 
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - MCQs
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{mcq.standard}} Class MCQ</h5>
+                    <h4 class="card-title">{{mcq.chapter|title}}</h4>
+                    <p class="card-text">{{mcq.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{mcq.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'mcq_update' mcq.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'mcq_delete' mcq.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{mcq.date_added|date:'d/m/y'}} by {{mcq.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+
+      {% endfor %}
+ 
+{% endif %}
+
+
+{% if icts %}
+
+      {% for ict in icts  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              
+
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - ICT & SIMULATIONS
+                  </div>
+                  <img src="{{ ict.image.url}}" class="card-img-top img-fit"  alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ict.title}} </h5>
+                    
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{ ict.link}}" class="btn btn-primary btn-sm">Visit Site</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'ict_update' ict.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'ict_delete' ict.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{ict.date_added|date:'d/m/y'}} by {{ict.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+     
+
+      {% endfor %}
+
+{% endif %}
+
+
+{% if worksheets %}
+      {% for worksheet in worksheets  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Worksheets
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{worksheet.standard}} Class Worksheet</h5>
+                    <h4 class="card-title">{{worksheet.chapter|title}}</h4>
+                    <p class="card-text">{{worksheet.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{worksheet.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'worksheet_update' worksheet.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'worksheet_delete' worksheet.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{worksheet.date_added|date:'d/m/y'}} by {{worksheet.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+     
+
+      {% endfor %}
+  
+{% endif %}
+
+{% if otherbooks %}
+      {% for otherbook in otherbooks  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Otherbooks
+                  </div>
+                  <div class="card-body">
+                    <h4 class="card-title">{{otherbook.title|title}}</h4>
+                    <p class="card-text">{{otherbook.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{otherbook.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'otherbook_update' otherbook.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'otherbook_delete' otherbook.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{otherbook.date_added|date:'d/m/y'}} by {{otherbook.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+     
+
+      {% endfor %}
+  
+{% endif %}
+
+
+
+{% if handbooks %}
+
+      {% for handbook in handbooks  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              
+
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Teacher Handbooks
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{handbook.standard}} Class</h5>
+                    <h4 class="card-title">{{handbook.title|title}}</h4>
+                    <p class="card-text">{{handbook.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{handbook.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'handbook_update' handbook.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'handbook_delete' handbook.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{handbook.date_added|date:'d/m/y'}} by {{handbook.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+
+      {% endfor %}
+ 
+{% endif %}
+
+{% if tlms %}
+
+{% for tlm in tlms %}
+
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+                  <div class="card h-100" >
+                    <img src="{{  tlm.image.url }}" class="card-img-top img-fit" alt="...">
+                            <div class="card-body" style="display: flex; height:100%; flex-direction: column;">
+                              <h5 class="card-title">{{tlm.title}}</h5>
+                              <p class="card-text">{{ tlm.description}}</p>
+                              <div class="card-footer text-muted">
+                                {% if user.is_authenticated %}
+                                <div>
+                                  <a href="{% url 'tlm_details' tlm.pk %}" class="btn btn-primary btn-sm">View</a>
+                                <a href="{% url 'tlm_update' tlm.pk %}" class="btn btn-info btn-sm">Update</a>
+                                <a href="{% url 'tlm_delete' tlm.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                                {% endif %}
+                                
+                                <em class="small">Uploaded on {{tlm.date_added|date:'d/m/y'}} by {{tlm.uploaded_by.name|title}}</em>
+                                
+                                
+                              </div>
+                              
+                            </div>
+                  </div>
+        </div>
+       
+
+        {% endfor %}
+
+{% endif %}
+
+{% if labs %}
+      {% for lab in labs  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Lab Manuals
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{lab.standard}}</h5>
+                    <h4 class="card-title">{{lab.title|title}}</h4>
+                    <p class="card-text">{{lab.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{lab.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'lab_update' lab.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'lab_delete' lab.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{lab.date_added|date:'d/m/y'}} by {{lab.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      
+      {% endfor %}
+ 
+{% endif %}
+
+{% if keys %}
+      {% for key in keys  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - PRINCIPLES OF VALUATION / KEY
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{key.standard}} Class {{key.exam}} {{key.year}}</h5>
+                    <h4 class="card-title">{{key.title|title}}</h4>
+                    <p class="card-text">{{key.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{key.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'key_update' key.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'key_delete' key.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{key.date_added|date:'d/m/y'}} by {{key.uploaded_by.name|title}}</em>
+                  </div>
+                </div>              
+      </div>
+      
+      {% endfor %}
+ 
+{% endif %}
+
+{% if hots %}
+
+      {% for hot in hots  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Case Study & HOT questions
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{hot.standard}} Class {{hot.chapter|capfirst}}</h5>
+                    <h4 class="card-title">{{hot.title|title}}</h4>
+                    <p class="card-text">{{hot.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{hot.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'hot_update' hot.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'hot_delete' hot.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{hot.date_added|date:'d/m/y'}} by {{hot.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+   
+      {% endfor %}
+
+{% endif %}
+
+{% if mindmaps %}
+
+      {% for mindmap in mindmaps  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Mindmaps
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{mindmap.standard}} Class {{mindmap.chapter|capfirst}}</h5>
+                    <h4 class="card-title">{{mindmap.title|title}}</h4>
+                    <p class="card-text">{{mindmap.description}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{mindmap.file.url}}" class="btn btn-primary btn-sm">Download</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'mindmap_update' mindmap.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'mindmap_delete' mindmap.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{mindmap.date_added|date:'d/m/y'}} by {{mindmap.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+      {% endfor %}
+ 
+{% endif %}
+
+{% if quizs %}
+
+      {% for quiz in quizs  %}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+              <div class="card h-100 box-shadow">
+                  <div class="card-header" style="background-color: cadetblue;">
+                    #{{forloop.counter}} - Quizzes
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{quiz.standard}} Class </h5>
+                    <h4 class="card-title">{{quiz.topic|title}}</h4>
+                    <p class="card-text">{{quiz.sub_topic}}</p>
+                    
+                  </div>
+                  <div class="card-footer text-muted">
+                      <div class="btn-group-justified ">
+                      <a href="{{quiz.link}}" class="btn btn-primary btn-sm">Participate</a>
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'quiz_update' quiz.pk %}" class="btn btn-info btn-sm">Update</a>
+                      <a href="{% url 'quiz_delete' quiz.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      {% endif %}
+                      </div>
+                    <em class="">Uploaded on {{quiz.date_added|date:'d/m/y'}} by {{quiz.uploaded_by.name|title}}</em>
+                  </div>
+                </div>
+              
+      </div>
+          {% endfor %}
+
+{% endif %}
+
+
+
+{% if teachingvideos %}
+   
+  {% for teachingvideo in teachingvideos %}
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+    <div class="d-flex justify-content-center">
+      {% video teachingvideo.video 'tiny' %}
+    </div>
+    <div>
+      <p class='mb-0'> #{{ forloop.counter}} Teachingvideo</p>
+      <h5 class ="mt-0">{{teachingvideo.standard}} Class</h5>
+      <h4 class ="mt-0">{{teachingvideo.title}}</h4>
+      <p>{{teachingvideo.description}}</p>
+        <div class="card-footer text-muted">
+          <div class="btn-group-justified ">
+          
+          {% if user.is_authenticated %}
+          <a href="{% url "teachingvideo_update" teachingvideo.pk %}" class="btn btn-info btn-sm">Update</a>
+          <a href="{% url "teachingvideo_delete" teachingvideo.pk %}" class="btn btn-danger btn-sm">Delete</a>
+          {% endif %}
+          </div>
+        <em class="">Uploaded on {{teachingvideo.date_added|date:'d/m/y'}} by {{teachingvideo.uploaded_by.name|title}}</em>
+      </div>
+    </div>
+  </div>
+  
+  {% endfor %}
+  
+{% endif %}
+
+{% if videos %}
+ 
+  {% for video in videos %}
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+    <div class="d-flex justify-content-center">
+      {% video video.video 'tiny' %}
+    </div>
+    <div>
+      <p class='mb-0'> #{{ forloop.counter}} video</p>
+      <h5 class ="mt-0">{{video.title}}</h5>
+      <p>{{video.description}}</p>
+        <div class="card-footer text-muted">
+          <div class="btn-group-justified ">
+          
+          {% if user.is_authenticated %}
+          <a href="{% url "video_update" video.pk %}" class="btn btn-info btn-sm">Update</a>
+          <a href="{% url "video_delete" video.pk %}" class="btn btn-danger btn-sm">Delete</a>
+          {% endif %}
+          </div>
+        <em class="">Uploaded on {{video.date_added|date:'d/m/y'}} by {{video.uploaded_by.name|title}}</em>
+      </div>
+    </div>
+  </div>
+ 
+
+  {% endfor %}
+ 
+{% endif %}
+
+
+{% if ifps %}
+  
+  {% for ifp in ifps %}
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm">
+    <div class="d-flex justify-content-center">
+      {% video ifp.video 'tiny' %}
+    </div>
+    <div>
+      <p class='mb-0'> #{{ forloop.counter}} IFP Usage video</p>
+      <h5 class ="mt-0">{{ifp.title}}</h5>
+      <p>{{ifp.description}}</p>
+                      <div class="card-footer text-muted">
+                                  <div class="btn-group-justified ">
+                                  
+                                  {% if user.is_authenticated %}
+                                  <a href="{% url "ifp_update" ifp.pk %}" class="btn btn-info btn-sm">Update</a>
+                                  <a href="{% url "ifp_delete" ifp.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                                  {% endif %}
+                                  </div>
+                      <em class="">Uploaded on {{ifp.date_added|date:'d/m/y'}} by {{ifp.uploaded_by.name|title}}</em>
+                    </div>
+    </div>
+  </div>
+  
+
+  {% endfor %}
+
+{% endif %}
+</div>
+</div>
+
+
+{% endblock content %}

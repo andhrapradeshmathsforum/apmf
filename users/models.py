@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.core.validators import RegexValidator
 
+
 # Create your models here.
 
 class MyUserManager(BaseUserManager):
@@ -41,7 +42,7 @@ class MyUser(AbstractBaseUser):
     REQUIRED_FIELDS = ['phone_number', 'name']
 
     def __str__(self):
-        return self.email
+        return self.name
     
     def has_perm(self, perm, obj=None):
         return True
